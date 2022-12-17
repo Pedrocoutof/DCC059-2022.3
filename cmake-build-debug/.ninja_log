@@ -1,0 +1,18 @@
+# ninja log v5
+1	142	6923004829782175	build.ninja	5bf323f54fafa08e
+4	640	6922985061502369	CMakeFiles/Trabalho_1_Refatorado.dir/main.cpp.obj	418287031e32f246
+640	780	6922985062899040	Trabalho_1_Refatorado.exe	5ce623b97f9005e8
+11	666	6922974684369886	CMakeFiles/Trabalho_1_Refatorado.dir/lib/src/Edge.cpp.obj	c3c7d595d9da9c69
+15	682	6922974684549717	CMakeFiles/Trabalho_1_Refatorado.dir/lib/src/Node.cpp.obj	308079d23df4e082
+0	874	6923004829782175	build.ninja	5bf323f54fafa08e
+6	825	6923004841781372	CMakeFiles/Trabalho_1_Refatorado.dir/lib/src/Node.cpp.obj	308079d23df4e082
+10	987	6923004843699696	CMakeFiles/Trabalho_1_Refatorado.dir/main.cpp.obj	418287031e32f246
+17	987	6923004843699696	CMakeFiles/Trabalho_1_Refatorado.dir/lib/src/Graph.cpp.obj	c26cb2e29af4aceb
+988	2072	6923004854533774	Trabalho_1_Refatorado.exe	c74b3a610672a600
+4	436	6923005145293459	CMakeFiles/Trabalho_1_Refatorado.dir/main.cpp.obj	418287031e32f246
+437	785	6923005148761609	Trabalho_1_Refatorado.exe	c74b3a610672a600
+3	556	6923005506819033	CMakeFiles/Trabalho_1_Refatorado.dir/main.cpp.obj	418287031e32f246
+556	728	6923005508530604	Trabalho_1_Refatorado.exe	c74b3a610672a600
+3	407	6923005846719918	CMakeFiles/Trabalho_1_Refatorado.dir/main.cpp.obj	418287031e32f246
+408	532	6923005847946618	Trabalho_1_Refatorado.exe	c74b3a610672a600
+6	434	6923008809311562	CMakeFiles/Trabalho_1_Refatorado.dir/main.cpp.obj	418287031e32f246

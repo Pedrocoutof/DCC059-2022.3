@@ -1,0 +1,4 @@
+"H:\CLion\CLion 2022.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S H:\UFJF\2022.2\Grafos\Trabalho-1-Refatorado -B H:\UFJF\2022.2\Grafos\Trabalho-1-Refatorado\cmake-build-debug
+-- Configuring done
+-- Generating done
+-- Build files have been written to: H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug

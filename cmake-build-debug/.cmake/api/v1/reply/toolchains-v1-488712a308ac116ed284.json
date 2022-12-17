@@ -1,0 +1,145 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include",
+						"H:/CLion/CLion 2022.1/bin/mingw/include",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed",
+						"H:/CLion/CLion 2022.1/bin/mingw/x86_64-w64-mingw32/include",
+						"/Mingw/include"
+					],
+					"linkDirectories" : 
+					[
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc",
+						"H:/CLion/CLion 2022.1/bin/mingw/x86_64-w64-mingw32/lib",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib",
+						"/Mingw/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"kernel32",
+						"pthread",
+						"advapi32",
+						"shell32",
+						"user32",
+						"kernel32",
+						"iconv",
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"kernel32"
+					]
+				},
+				"path" : "H:/CLion/CLion 2022.1/bin/mingw/bin/gcc.exe",
+				"version" : "11.2.0"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include",
+						"H:/CLion/CLion 2022.1/bin/mingw/include",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed",
+						"H:/CLion/CLion 2022.1/bin/mingw/x86_64-w64-mingw32/include",
+						"/Mingw/include"
+					],
+					"linkDirectories" : 
+					[
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib/gcc",
+						"H:/CLion/CLion 2022.1/bin/mingw/x86_64-w64-mingw32/lib",
+						"H:/CLion/CLion 2022.1/bin/mingw/lib",
+						"/Mingw/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"stdc++",
+						"mingw32",
+						"gcc_s",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"kernel32",
+						"pthread",
+						"advapi32",
+						"shell32",
+						"user32",
+						"kernel32",
+						"iconv",
+						"mingw32",
+						"gcc_s",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"kernel32"
+					]
+				},
+				"path" : "H:/CLion/CLion 2022.1/bin/mingw/bin/g++.exe",
+				"version" : "11.2.0"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"implicit" : {},
+				"path" : "H:/CLion/CLion 2022.1/bin/mingw/bin/windres.exe"
+			},
+			"language" : "RC",
+			"sourceFileExtensions" : 
+			[
+				"rc",
+				"RC"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

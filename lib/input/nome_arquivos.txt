@@ -1,0 +1,17 @@
+grafo_nao_ponderado_1000_1.txt
+grafo_nao_ponderado_1000_2.txt
+grafo_nao_ponderado_10000_1.txt
+grafo_nao_ponderado_10000_3.txt
+grafo_nao_ponderado_personalizado_10_1.txt
+grafo_nao_ponderado_personalizado_10_2.txt
+grafo_nao_ponderado_personalizado_25.txt
+grafo_nao_ponderado_personalizado_5_1.txt
+grafo_nao_ponderado_personalizado_5_2.txt
+grafo_ponderado_125.txt
+grafo_ponderado_personalizado_10_1.txt
+grafo_ponderado_personalizado_10_2.txt
+grafo_ponderado_personalizado_10_3.txt
+grafo_ponderado_personalizado_25.txt
+GAD_1.txt
+GAD_2.txt
+GAD_1_ponderado.txt

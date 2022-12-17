@@ -1,0 +1,3 @@
+H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/CMakeFiles/Trabalho_1_Refatorado.dir
+H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/CMakeFiles/edit_cache.dir
+H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/CMakeFiles/rebuild_cache.dir
