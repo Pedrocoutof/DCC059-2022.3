@@ -104,9 +104,11 @@ Graph * GraphOperations::intersectionUndirectedGraph(Graph * g1, Graph * g2){
 
 
     for(auto node : g1->getAllNodes()){
-        for(auto edge : node->getAllUndirectedEdges())
-            if(g2->getNode(node->getID())->searchEdge(edge->getTargetId()))
+        for(auto edge : node->getAllUndirectedEdges()) {
+            if (g2->getNode(node->getID())->searchEdge(edge->getTargetId())) {
                 finalGraph->insertEdge(node->getID(), edge->getTargetId(), edge->getWeight());
+            }
+        }
     }
 
     return finalGraph;
@@ -134,7 +136,22 @@ Graph * GraphOperations::intersectionDirectedGraph(Graph * g1, Graph * g2){
 
 // TODO : Implementar a diferenca entre grafos... cansado demais
 Graph * GraphOperations::differenceUndirectedGraph(Graph * g1, Graph * g2){
-    return nullptr;
+    Graph * finalGraph = new Graph(g1->getOrder(),
+                                   g1->isDirected(),
+                                   g1->isWeightedEdge(),
+                                   g1->isWeightedNode());
+
+    Graph * intersection = Intersection(g1, g2);
+
+    for(auto node : g1->getAllNodes())
+        for(auto edge : node->getAllUndirectedEdges()){
+            if(intersection->searchNode(node->getID()))
+                if(!intersection->getNode(node->getID())->searchEdge(edge->getTargetId()))
+                    finalGraph->insertEdge(node->getID(), edge->getTargetId(), edge->getWeight());
+        }
+
+    return finalGraph;
+
 }
 
 Graph * GraphOperations::differenceDirectedGraph(Graph * g1, Graph * g2){

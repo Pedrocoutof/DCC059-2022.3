@@ -3,6 +3,13 @@
 #include "lib/include/Sort.h"
 #include "lib/include/GraphOperations.h"
 
+/*
+ * TODO:
+ *      Implementar a funcao para realizar a diferença entre grafos
+ *          "       "   "     "   Rede Pert
+ *          "       "   "     "   problema do subconjunto dominante
+ */
+
 using namespace std;
 
 const string OUTPUT_PATH = "../lib/output/";
@@ -125,7 +132,7 @@ int main(int argc, char *argv[]) {
         file1 = selectFile();
         file2 = selectFile();
 
-        bool directed = true, weightedEdge = false, weightedNode = false;
+        bool directed = false, weightedEdge = false, weightedNode = false;
 
         Graph * g1 = readFile(file1, directed, weightedEdge, weightedNode);
         Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
@@ -133,9 +140,18 @@ int main(int argc, char *argv[]) {
         g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
         g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
 
-        //Graph * _difference = GraphOperations::Difference(g1, g2);
-        //_difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
-        //_difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
+
+        Graph * _union = GraphOperations::Union(g1, g2);
+        _union->generateGraphViz(OUTPUT_PATH + "union.dot");
+        _union->generateAdjacencyList(OUTPUT_PATH + "union.txt");
+
+        Graph * _intersection = GraphOperations::Intersection(g1, g2);
+        _intersection->generateGraphViz(OUTPUT_PATH + "intersection.dot");
+        _intersection->generateAdjacencyList(OUTPUT_PATH + "intersection.txt");
+
+        Graph * _difference = GraphOperations::Difference(g1, g2);
+        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
+        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
 
         //vector<Node*> _redePert = GraphOperations::RedePert(g1);
         //PrintVector(_redePert);
