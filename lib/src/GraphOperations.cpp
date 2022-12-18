@@ -134,7 +134,7 @@ Graph * GraphOperations::intersectionDirectedGraph(Graph * g1, Graph * g2){
 
 // endregion
 
-// TODO : Implementar a diferenca entre grafos... cansado demais
+// region Difference
 Graph * GraphOperations::differenceUndirectedGraph(Graph * g1, Graph * g2){
     Graph * finalGraph = new Graph(g1->getOrder(),
                                    g1->isDirected(),
@@ -210,41 +210,29 @@ vector<Node*> GraphOperations::RedePert(Graph * graph){
 
     graph->generateAdjacencyList("../lib/output/lista de adjacencia.txt");
 
-    // inisiro na solução todos os nós que nao possuem dependência
-    for(auto node : graph->getAllNodes()) {
-        if (node->getAllInputEdges().empty()) {
-            node->setVisited(true);
+    // Insere na solução todos os nós que nao possuem dependência
+//    for(auto node : graph->getAllNodes()) {
+//        if (node->getAllInputEdges().empty()) {
+//            node->setVisited(true);
+//            finalSequence.push_back(node);
+//        }
+//    }
+
+    //INSERE NA SOLUÇÃO OS QUE NAO POSSUEM DEPENDECIA
+    // REMOVE NOS INPUT_EDGES OS QUE ESTAO NA SOLUCAO
+    // Repito ate que todos vertices tenham sido visitados
+
+    for(auto node : graph->getAllNodes()){
+        if(node->getAllInputEdges().empty()) {
             finalSequence.push_back(node);
+            node->setVisited(true);
+        }
+        if(node->getVisited())
+        {
+            for(auto nodeDependentes: node->getAllOutputEdges())
+                graph->removeEdge(nodeDependentes->getTargetId(), node->getID());
         }
     }
-
-    while(graph->getOrder() != graph->getNumNodesVisited()){
-        for(auto nodeGraph : graph->getAllNodes()) {
-            if(!nodeGraph->getVisited()) {
-                bool flag = false;
-                for (auto nodeSolution: finalSequence)
-                    if (!nodeGraph->searchInputEdge(nodeSolution->getID()))
-                        flag = true;
-
-                if (flag) {
-                    nodeGraph->setVisited(true);
-                    finalSequence.push_back(nodeGraph);
-                }
-            }
-        }
-
-
-        for(auto node : graph->getAllNodes()) {
-            if (node->getVisited()) {
-                cout << endl << node->getID() << " Visitado!";
-            }else{
-                cout << endl << node->getID() << " NAO visitado!";
-            }
-        }
-
-    }
-
-
 
     return finalSequence;
 }
