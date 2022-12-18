@@ -1,6 +1,2 @@
-strict graph Graph {
-0--4
-4--0
-4--3
-3--4
+strict digraph Digraph {
 }

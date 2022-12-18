@@ -8,116 +8,114 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug"/>
+				<Option working_dir="D:/ufjf/DCC059-2022.3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Trabalho_1_Refatorado">
-				<Option output="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Trabalho_1_Refatorado.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug"/>
+				<Option output="D:/ufjf/DCC059-2022.3/cmake-build-debug/Trabalho_1_Refatorado.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/ufjf/DCC059-2022.3/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
-					<Add directory="/mingw/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 Trabalho_1_Refatorado"/>
-					<CompileFile command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Trabalho_1_Refatorado"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Trabalho_1_Refatorado/fast">
-				<Option output="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Trabalho_1_Refatorado.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug"/>
+				<Option output="D:/ufjf/DCC059-2022.3/cmake-build-debug/Trabalho_1_Refatorado.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/ufjf/DCC059-2022.3/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
-					<Add directory="H:/CLion/CLion 2022.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
-					<Add directory="/mingw/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2022.2.3/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 Trabalho_1_Refatorado/fast"/>
-					<CompileFile command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 Trabalho_1_Refatorado/fast"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug"/>
+				<Option working_dir="D:/ufjf/DCC059-2022.3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug"/>
+				<Option working_dir="D:/ufjf/DCC059-2022.3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="H:/CLion/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/bin/mingw32-make.exe -f &quot;D:/ufjf/DCC059-2022.3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/Edge.h">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/include/Edge.h">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/Graph.h">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/include/Graph.h">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/GraphOperations.h">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/include/GraphOperations.h">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/Node.h">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/include/Node.h">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/Sort.h">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/include/Sort.h">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/src/Edge.cpp">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/src/Edge.cpp">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/src/Graph.cpp">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/src/Graph.cpp">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/src/GraphOperations.cpp">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/src/GraphOperations.cpp">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/src/Node.cpp">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/src/Node.cpp">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/src/Sort.cpp">
+		<Unit filename="D:/ufjf/DCC059-2022.3/lib/src/Sort.cpp">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/main.cpp">
+		<Unit filename="D:/ufjf/DCC059-2022.3/main.cpp">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
-		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/CMakeLists.txt">
+		<Unit filename="D:/ufjf/DCC059-2022.3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

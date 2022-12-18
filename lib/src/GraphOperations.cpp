@@ -155,8 +155,24 @@ Graph * GraphOperations::differenceUndirectedGraph(Graph * g1, Graph * g2){
 }
 
 Graph * GraphOperations::differenceDirectedGraph(Graph * g1, Graph * g2){
-    return nullptr;
+    Graph * finalGraph = new Graph(g1->getOrder(),
+                                   g1->isDirected(),
+                                   g1->isWeightedEdge(),
+                                   g1->isWeightedNode());
+
+    Graph * intersection = Intersection(g1, g2);
+
+    for(auto node : g1->getAllNodes())
+        for(auto edge : node->getAllOutputEdges()){
+            if(intersection->searchNode(node->getID()))
+                if(!intersection->getNode(node->getID())->searchEdge(edge->getTargetId()))
+                    finalGraph->insertEdge(node->getID(), edge->getTargetId(), edge->getWeight());
+        }
+
+    return finalGraph;
 }
+
+// endregion
 
 // endregion
 
@@ -208,31 +224,38 @@ vector<Node*> GraphOperations::RedePert(Graph * graph){
     vector<Node*> finalSequence;
     finalSequence.clear();
 
-    graph->generateAdjacencyList("../lib/output/lista de adjacencia.txt");
-
     // Insere na solução todos os nós que nao possuem dependência
-//    for(auto node : graph->getAllNodes()) {
-//        if (node->getAllInputEdges().empty()) {
-//            node->setVisited(true);
-//            finalSequence.push_back(node);
-//        }
-//    }
-
-    //INSERE NA SOLUÇÃO OS QUE NAO POSSUEM DEPENDECIA
-    // REMOVE NOS INPUT_EDGES OS QUE ESTAO NA SOLUCAO
-    // Repito ate que todos vertices tenham sido visitados
-
-    for(auto node : graph->getAllNodes()){
-        if(node->getAllInputEdges().empty()) {
-            finalSequence.push_back(node);
+    for(auto node : graph->getAllNodes()) {
+        if (node->getAllInputEdges().empty()) {
             node->setVisited(true);
-        }
-        if(node->getVisited())
-        {
-            for(auto nodeDependentes: node->getAllOutputEdges())
-                graph->removeEdge(nodeDependentes->getTargetId(), node->getID());
+            finalSequence.push_back(node);
         }
     }
+
+    for(auto node : graph->getAllNodes()) {
+        if(!node->getVisited())
+            for(auto nodeSolution : finalSequence)
+                if(!node->searchInputEdge(nodeSolution->getID()))
+                    break;
+                else{
+                    cout<<node->getID()<<":"<<node->getVisited()<<endl;
+                    node->setVisited(true);
+                    if(finalSequence.back()->getID() != node->getID())
+                        finalSequence.push_back(node);
+                }
+    }
+    
+
+
+
+    //OPCAO1:PERCORRE OS NÓS E REMOVE TODOS QUE TEM INPUT_EDGE IGUAL AO NÓ DA SOLUÇÃO
+
+
+
+    //OPCAO2:PERCORRE OS NÓS E VE SE SUAS INPUT_EDGES JÁ FORAM VISITADAS
+
+    graph->generateAdjacencyList("../lib/output/lista de adjacencia.txt");
+
 
     return finalSequence;
 }

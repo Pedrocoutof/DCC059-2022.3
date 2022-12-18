@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
         file1 = selectFile();
         file2 = selectFile();
 
-        bool directed = false, weightedEdge = false, weightedNode = false;
+        bool directed = true, weightedEdge = false, weightedNode = false;
 
         Graph * g1 = readFile(file1, directed, weightedEdge, weightedNode);
         Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
@@ -153,8 +153,8 @@ int main(int argc, char *argv[]) {
         _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
         _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
 
-        //vector<Node*> _redePert = GraphOperations::RedePert(g1);
-        //PrintVector(_redePert);
+        vector<Node*> _redePert = GraphOperations::RedePert(g1);
+        PrintVector(_redePert);
     }
 
     return 0;
