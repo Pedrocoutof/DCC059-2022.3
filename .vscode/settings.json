@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "memory": "cpp",
+        "istream": "cpp",
+        "functional": "cpp",
+        "iostream": "cpp"
+    }
+}
