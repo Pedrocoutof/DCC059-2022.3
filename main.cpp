@@ -152,7 +152,12 @@ int main(int argc, char *argv[]) {
 //        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
 //        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
 //
+        //vector<Node*> _redePert0 = GraphOperations::RedePert0(g1);
+
         vector<Node*> _redePert = GraphOperations::RedePert(g1);
+
+        //vector<Node*> _redePert = GraphOperations::RedePert2(g1);
+        
         //PrintVector(_redePert);
     }
 

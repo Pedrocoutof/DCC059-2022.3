@@ -22,6 +22,7 @@ public:
     static Graph * Intersection(Graph * graph1, Graph * graph2);
     static Graph * Difference(Graph * graph1, Graph * graph2);
     static vector<Node*> RedePert(Graph * graph);
+    static vector<Node*> RedePert2(Graph * graph);
 
 };
 
