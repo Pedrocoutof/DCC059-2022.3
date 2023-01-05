@@ -113,7 +113,8 @@
 				3,
 				5,
 				7,
-				9
+				9,
+				11
 			]
 		}
 	],
@@ -179,6 +180,11 @@
 			"compileGroupIndex" : 0,
 			"path" : "lib/src/GraphOperations.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "lib/include/PriorityQueue.h",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"

@@ -12,36 +12,8 @@ Graph::Graph(int order, bool directed, bool weighted_edge, bool weighted_node){
     this->nodes.clear();
 }
 
-int Graph::getNumNodesVisited(){
-    int counter = 0;
-    for(auto node : this->nodes)
-        if(node->getVisited())
-            counter++;
-
-    return counter;
-}
-
 Graph::~Graph() {}
 
-void Graph::removeNode(int id) {
-    auto it = nodes.begin();
-
-    for( ; it != nodes.end() ;it++){
-        if( (*it)->getID() == id){
-            nodes.erase(it);
-        }
-    }
-
-}
-
-//TODO: Revisar
-Node * Graph::getNode(int id) {
-    for (auto node : this->nodes)
-        if(node->getID() == id)
-            return node;
-
-    return nullptr;
-}
 
 bool Graph::searchNode(int id) {
     for (auto node : this->nodes)
@@ -49,47 +21,6 @@ bool Graph::searchNode(int id) {
             return true;
 
     return false;
-}
-
-void Graph::insertUndirectedEdge(int originID, int targetID, float weight) {
-    getNode(originID)->insertUndirectedEdge(targetID, weight);
-    getNode(targetID)->insertUndirectedEdge(originID, weight);
-}
-
-void Graph::insertNode(int id, float weight) {
-    Node * newNode = new Node(id, weight);
-    this->nodes.push_back(newNode);
-}
-
-void Graph::insertEdge(int id, int target_id, float weight){
-
-    // Verificamos se existe o no de origem
-    if(getNode(id) == nullptr)
-        this->insertNode(id, weight);
-
-    // Verificamos se existe o no de destino
-    if(getNode(target_id) == nullptr)
-        this->insertNode(target_id, weight);
-
-    // caso seja direcionado
-    if(this->directed){
-        // Insere na origem uma aresta para o destino
-        this->getNode(id)->insertOutputEdge(target_id, weight);
-
-        // Insere no destino uma aresta de entrada
-        this->getNode(target_id)->insertInputEdge(id, weight);
-    }
-
-    // caso NÃO seja direcionado
-    else{
-
-        // evita multi-aresta
-        if(getNode(id)->searchEdge(target_id))
-            return;
-
-        this->insertUndirectedEdge(id, target_id, weight);
-    }
-
 }
 
 void Graph::generateAdjacencyList(string output_path) {
@@ -156,6 +87,56 @@ void Graph::orderByWeight(){
     }
 }
 
+void Graph::orderByDegree() {
+    Sort::SortByDegree(this->nodes);
+}
+
+// region Inserts
+
+void Graph::insertUndirectedEdge(int originID, int targetID, float weight) {
+    getNode(originID)->insertUndirectedEdge(targetID, weight);
+    getNode(targetID)->insertUndirectedEdge(originID, weight);
+}
+
+void Graph::insertNode(int id, float weight) {
+    Node * newNode = new Node(id, weight);
+    this->nodes.push_back(newNode);
+}
+
+void Graph::insertEdge(int id, int target_id, float weight){
+
+    // Verificamos se existe o no de origem
+    if(getNode(id) == nullptr)
+        this->insertNode(id, weight);
+
+    // Verificamos se existe o no de destino
+    if(getNode(target_id) == nullptr)
+        this->insertNode(target_id, weight);
+
+    // caso seja direcionado
+    if(this->directed){
+        // Insere na origem uma aresta para o destino
+        this->getNode(id)->insertOutputEdge(target_id, weight);
+
+        // Insere no destino uma aresta de entrada
+        this->getNode(target_id)->insertInputEdge(id, weight);
+    }
+
+        // caso NÃO seja direcionado
+    else{
+
+        // evita multi-aresta
+        if(getNode(id)->searchEdge(target_id))
+            return;
+
+        this->insertUndirectedEdge(id, target_id, weight);
+    }
+
+}
+// endregion
+
+// region Removes
+
 void Graph::removeEdge(int id, int targetID) {
     if(this->directed){
         this->removeDirectedEdge(id, targetID);
@@ -178,6 +159,18 @@ void Graph::removeDirectedEdge(int originID, int targetID){
     // Remove a aresta de entrada
     this->getNode(targetID)->removeInputEdge(originID);
 }
+
+void Graph::removeNode(int id) {
+    auto it = nodes.begin();
+
+    for( ; it != nodes.end() ;it++){
+        if( (*it)->getID() == id){
+            nodes.erase(it);
+        }
+    }
+
+}
+// endregion
 
 // region Graphviz
 
@@ -253,6 +246,14 @@ void Graph::generateGraphViz(string output_path) {
 
 // region Get's
 
+Node * Graph::getNode(int id) {
+    for (auto node : this->nodes)
+        if(node->getID() == id)
+            return node;
+
+    return nullptr;
+}
+
 int Graph::getOrder() {
     return this->order;
 
@@ -264,13 +265,18 @@ int Graph::getNumberOfEdges() {
 
     int total = 0;
 
-    for(Node* it : nodes){
-        total += it->getOutDegree();
-        total += it->getInDegree();
+    if(directed){
+        for(Node* it : nodes){
+            total += it->getOutDegree();
+            total += it->getInDegree();
+        }
     }
 
-    if(!directed){
-        total = total/2;
+    else{
+        for(Node* it : nodes){
+            total += it->getDegree();
+        }
+        total = total / 2; // Teorema do aperto de mão
     }
 
     return total;
@@ -293,3 +299,36 @@ vector<Node*> Graph::getAllNodes(){
 }
 
 // endregion
+
+bool verificaNosVisitados(vector<bool> arr){
+    for(auto index: arr)
+        if(index == false)
+            return false;
+
+    return true;
+}
+
+// Estrutura auxiliar para inserir de forma ordenada os nós na pq
+struct compDegree{
+    bool operator() (Node* const n1, Node* const n2){
+        if (n1->getOutDegree() != n2->getOutDegree()){
+            return n1->getOutDegree() < n2->getOutDegree();
+        }
+        else{
+            return n1->getWeight() < n2->getWeight();
+        }
+    }
+};
+
+void Graph::MinimalDominantSubsetDirected(string output_path) {
+
+}
+
+void Graph::MinimalDominantSubset(string output_path){
+    if(this->directed){
+        cerr << endl << "Ainda nao implementado : " << __LINE__;
+    }
+    else{
+        cerr << endl << "Ainda nao implementado : " << __LINE__;
+    }
+}

@@ -7,7 +7,6 @@ Node::Node(int id, float weight){
     this->fan_in.clear();
     this->fan_out.clear();
     this->fan.clear();
-    this->visited = false;
 }
 
 Node::~Node() {}
@@ -30,9 +29,6 @@ void Node::orderEdgesByWeight() {
 
 // region Inserts
 
-void Node::setVisited(bool visited){
-    this->visited = visited;
-}
 
 void Node::insertUndirectedEdge(int targetID, float weight){
     Edge * newEdge = new Edge(targetID, weight);
@@ -153,6 +149,10 @@ bool Node::searchOutputEdge(int targetID) {
 // endregion
 
 // region Get's
+int Node::getDegree(){
+    return this->fan.size();
+}
+
 int Node::getInDegree() {
     return this->fan_in.size();
 }
@@ -167,10 +167,6 @@ int Node::getID() {
 
 float Node::getWeight() {
     return this->weight;
-}
-
-bool Node::getVisited() {
-    return this->visited;
 }
 
 Edge * Node::getEdge(int targetID) {

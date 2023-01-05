@@ -153,4 +153,5 @@ CMakeFiles/Trabalho_1_Refatorado.dir/lib/src/GraphOperations.cpp.obj: \
  H:/CLion/CLION2~1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h \
  H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/GraphOperations.h \
  H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/Graph.h \
- H:/CLion/CLION2~1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream
+ H:/CLion/CLION2~1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
+ H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/Sort.h

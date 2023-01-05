@@ -23,12 +23,14 @@ protected:
     static int PartitionNodeWeight(vector<Node*> &v, int start, int end);
     static void QuickSortNodeWeightAux(vector<Node*> &v, int start, int end );
 
+
 public:
     static void SortByID(vector<Node*> &v);
     static void SortByID(vector<Edge*> &v);
 
     static void SortByWeight(vector<Node*> &v);
     static void SortByWeight(vector<Edge*> &v);
+    static void SortByDegree(vector<Node*> &v);
 
 };
 

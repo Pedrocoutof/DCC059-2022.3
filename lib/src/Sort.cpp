@@ -18,6 +18,33 @@ void Sort::SortByWeight(vector<Node*> &v){
     QuickSortNodeWeightAux(v, 0, v.size() - 1);
 };
 
+// Estrutura auxiliar para inserir de forma ordenada os nós na pq
+struct compDegree{
+    bool operator() (Node* const n1, Node* const n2){
+        if (n1->getOutDegree() != n2->getOutDegree()){
+            return n1->getOutDegree() < n2->getOutDegree();
+        }
+        else{
+            return n1->getWeight() < n2->getWeight();
+        }
+    }
+};
+
+void Sort::SortByDegree(vector<Node*> &v){
+    priority_queue<Node*, vector<Node*>, compDegree> priorityQueue;
+
+    for(int i = 0 ; i < v.size()-1 ; i++){
+        priorityQueue.push(v[i]);
+    }
+
+    v.clear();
+
+    for(int i = 0; !priorityQueue.empty() ; i++) {
+        v[i] = priorityQueue.top();
+        priorityQueue.pop();
+    }
+}
+
 // region Ordenacao dos nós pelo id
 int Sort::PartitionNodeID(vector<Node*> &v, int start, int end){
     int pivot = end;
@@ -111,5 +138,9 @@ void Sort::QuickSortNodeWeightAux(vector<Node*> &v, int start, int end ){
         QuickSortNodeWeightAux(v,p+1,end);
     }
 }
+
+// endregion
+
+// region Ordenação dos nós pelo grau
 
 // endregion

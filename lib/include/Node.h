@@ -15,7 +15,6 @@ class Node{
 private:
     int id;
     float weight;
-    bool visited;
     vector<Edge*> fan_out;
     vector<Edge*> fan_in;
     vector<Edge*> fan;
@@ -33,11 +32,9 @@ public:
     int getID();
     float getWeight();
 
-    bool getVisited();
-    void setVisited(bool visited);
-
     int getOutDegree();
     int getInDegree();
+    int getDegree();
 
     void setWeight(float weight);
 
@@ -63,7 +60,6 @@ public:
     void removeOutputEdge(int id);
     void removeUndirectedEdge(int id);
 
-
     void orderEdgesByWeight();
     void orderEdgesByID();
 
@@ -72,6 +68,8 @@ public:
     bool searchUndirectedEdge(int edgeID);
 
     vector<Edge *> getAllUndirectedEdges();
+
+    int getSumWeights();
 
 };
 

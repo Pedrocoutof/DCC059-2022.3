@@ -96,6 +96,9 @@
 		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/Node.h">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>
+		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/PriorityQueue.h">
+			<Option target="Trabalho_1_Refatorado"/>
+		</Unit>
 		<Unit filename="H:/UFJF/2022.2/Grafos/Trabalho-1-Refatorado/lib/include/Sort.h">
 			<Option target="Trabalho_1_Refatorado"/>
 		</Unit>

@@ -2,6 +2,8 @@
 #include "../include/Graph.h"
 #include "../include/GraphOperations.h"
 #include "iostream"
+#include "../include/Sort.h"
+
 using namespace std;
 
 // region Aux functions
@@ -204,35 +206,23 @@ Graph * GraphOperations::Difference(Graph *g1, Graph *g2) {
 
 vector<Node*> GraphOperations::RedePert(Graph * graph){
 
-    // Este vetor armazenará a sequencia de nós (conjunto solução)
-    vector<Node*> finalSequence;
-    finalSequence.clear();
+    bool visitados[graph->getOrder()];
+    float alfa[graph->getOrder()];
+    float beta[graph->getOrder()];
 
-    graph->generateAdjacencyList("../lib/output/lista de adjacencia.txt");
+    vector<Node*> solution;
 
-    // Insere na solução todos os nós que nao possuem dependência
-//    for(auto node : graph->getAllNodes()) {
-//        if (node->getAllInputEdges().empty()) {
-//            node->setVisited(true);
-//            finalSequence.push_back(node);
-//        }
-//    }
+    for(auto node: graph->getAllNodes())
+        node->orderEdgesByWeight();
 
-    //INSERE NA SOLUÇÃO OS QUE NAO POSSUEM DEPENDECIA
-    // REMOVE NOS INPUT_EDGES OS QUE ESTAO NA SOLUCAO
-    // Repito ate que todos vertices tenham sido visitados
-
-    for(auto node : graph->getAllNodes()){
-        if(node->getAllInputEdges().empty()) {
-            finalSequence.push_back(node);
-            node->setVisited(true);
-        }
-        if(node->getVisited())
-        {
-            for(auto nodeDependentes: node->getAllOutputEdges())
-                graph->removeEdge(nodeDependentes->getTargetId(), node->getID());
-        }
+    for(int i = 0 ; i < graph->getOrder() ; i++){
+        alfa[i] = 0;
+        beta[i] = 0;
+        visitados[i] = false;
     }
 
-    return finalSequence;
+
+
+    // Calculo do vetor beta
+    return solution;
 }

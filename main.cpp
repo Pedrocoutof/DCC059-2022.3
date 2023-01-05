@@ -5,7 +5,7 @@
 
 /*
  * TODO:
- *      Implementar a funcao para realizar a diferença entre grafos
+ *      Implementar a funcao para
  *          "       "   "     "   Rede Pert
  *          "       "   "     "   problema do subconjunto dominante
  */
@@ -73,7 +73,7 @@ Graph * readFile(ifstream& input_file, bool directed, bool weightedEdge, bool we
     }
 
     // Peso nas arestas
-    else if(graph->isWeightedEdge() && !graph->isWeightedNode() ){
+    else if(graph->isWeightedEdge() && !graph->isWeightedNode()){
         float edgeWeight;
         while(input_file >> idNodeSource >> idNodeTarget >> edgeWeight) {
 
@@ -97,21 +97,7 @@ Graph * readFile(ifstream& input_file, bool directed, bool weightedEdge, bool we
 
     }
 
-    // Peso nas arestas e nós
-    else if(graph->isWeightedNode() && graph->isWeightedEdge()){
-        float nodeSourceWeight, nodeTargetWeight, edgeWeight;
-        while(input_file >> idNodeSource >> nodeSourceWeight >> idNodeTarget >> nodeTargetWeight) {
-
-            graph->insertEdge(idNodeSource, idNodeTarget, edgeWeight);
-            graph->getNode(idNodeSource)->setWeight(nodeSourceWeight);
-            graph->getNode(idNodeTarget)->setWeight(nodeTargetWeight);
-
-        }
-
-    }
-
     return graph;
-
 };
 
 void PrintVector(vector<Node*> v){
@@ -130,31 +116,35 @@ int main(int argc, char *argv[]) {
 
         ifstream file1, file2;
         file1 = selectFile();
-        file2 = selectFile();
+//        file2 = selectFile();
 
-        bool directed = false, weightedEdge = false, weightedNode = false;
+        bool directed = true, weightedEdge = false, weightedNode = true;
 
         Graph * g1 = readFile(file1, directed, weightedEdge, weightedNode);
-        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
-
         g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
-        g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
+        g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
+        g1->MinimalDominantSubset("123");
 
-
-        Graph * _union = GraphOperations::Union(g1, g2);
-        _union->generateGraphViz(OUTPUT_PATH + "union.dot");
-        _union->generateAdjacencyList(OUTPUT_PATH + "union.txt");
-
-        Graph * _intersection = GraphOperations::Intersection(g1, g2);
-        _intersection->generateGraphViz(OUTPUT_PATH + "intersection.dot");
-        _intersection->generateAdjacencyList(OUTPUT_PATH + "intersection.txt");
-
-        Graph * _difference = GraphOperations::Difference(g1, g2);
-        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
-        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
-
-        //vector<Node*> _redePert = GraphOperations::RedePert(g1);
-        //PrintVector(_redePert);
+//        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
+//
+//        g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
+//        g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
+//
+//
+//        Graph * _union = GraphOperations::Union(g1, g2);
+//        _union->generateGraphViz(OUTPUT_PATH + "union.dot");
+//        _union->generateAdjacencyList(OUTPUT_PATH + "union.txt");
+//
+//        Graph * _intersection = GraphOperations::Intersection(g1, g2);
+//        _intersection->generateGraphViz(OUTPUT_PATH + "intersection.dot");
+//        _intersection->generateAdjacencyList(OUTPUT_PATH + "intersection.txt");
+//
+//        Graph * _difference = GraphOperations::Difference(g1, g2);
+//        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
+//        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
+//
+//        vector<Node*> _redePert = GraphOperations::RedePert(g1);
+//        PrintVector(_redePert);
     }
 
     return 0;

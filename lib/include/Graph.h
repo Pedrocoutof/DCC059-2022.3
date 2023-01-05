@@ -10,7 +10,7 @@ private:
     bool directed;
     bool weighted_edge;
     bool weighted_node;
-    vector<Node*> nodes;
+    Node *nodes;
 
 protected:
     void insertNodeSortBySequence();
@@ -23,6 +23,8 @@ protected:
     void generateGraphVizUndirected(ofstream& outFile);
     void removeUndirectedEdge(int id, int targetID);
     void removeDirectedEdge(int originID, int targetID);
+
+    void MinimalDominantSubsetDirected(string output_path);
 
 public:
     Graph(int order, bool directed, bool weighted_edge, bool weighted_node);
@@ -37,6 +39,7 @@ public:
 
     void orderByID();
     void orderByWeight();
+    void orderByDegree();
 
     void insertNode(int id, float weight);
     void removeNode(int id);
@@ -50,6 +53,7 @@ public:
     void generateAdjacencyList(string output_path);
     void generateGraphViz(string output_path);
 
+    void MinimalDominantSubset(string output_path);
 };
 
 

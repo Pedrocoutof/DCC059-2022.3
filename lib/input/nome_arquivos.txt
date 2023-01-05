@@ -15,3 +15,4 @@ grafo_ponderado_personalizado_25.txt
 GAD_1.txt
 GAD_2.txt
 GAD_1_ponderado.txt
+grafo_ponderado_6.txt
