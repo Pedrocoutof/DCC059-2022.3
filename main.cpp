@@ -12,8 +12,8 @@
 
 using namespace std;
 
-const string OUTPUT_PATH = "../lib/output/";
-const string INPUT_PATH = "../lib/input/";
+const string OUTPUT_PATH = "./lib/output/";
+const string INPUT_PATH = "./lib/input/";
 
 void printError(int line, string arquivo ,string message){
     cerr <<  endl << "[ERRO - " + arquivo + " : " << line << "] " + message;
@@ -36,7 +36,6 @@ ifstream selectFile(){
 
         cout << endl << "\t>> ";
         cin >> idSelected;
-
         nameFiles.clear();
         nameFiles.seekg(0);
 
@@ -130,31 +129,31 @@ int main(int argc, char *argv[]) {
 
         ifstream file1, file2;
         file1 = selectFile();
-        file2 = selectFile();
+        //file2 = selectFile();
 
-        bool directed = true, weightedEdge = false, weightedNode = false;
+        bool directed = true, weightedEdge = true, weightedNode = false;
 
         Graph * g1 = readFile(file1, directed, weightedEdge, weightedNode);
-        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
+        //Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
 
-        g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
-        g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
-
-
-        Graph * _union = GraphOperations::Union(g1, g2);
-        _union->generateGraphViz(OUTPUT_PATH + "union.dot");
-        _union->generateAdjacencyList(OUTPUT_PATH + "union.txt");
-
-        Graph * _intersection = GraphOperations::Intersection(g1, g2);
-        _intersection->generateGraphViz(OUTPUT_PATH + "intersection.dot");
-        _intersection->generateAdjacencyList(OUTPUT_PATH + "intersection.txt");
-
-        Graph * _difference = GraphOperations::Difference(g1, g2);
-        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
-        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
-
+//        g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
+//        g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
+//
+//
+//        Graph * _union = GraphOperations::Union(g1, g2);
+//        _union->generateGraphViz(OUTPUT_PATH + "union.dot");
+//        _union->generateAdjacencyList(OUTPUT_PATH + "union.txt");
+//
+//        Graph * _intersection = GraphOperations::Intersection(g1, g2);
+//        _intersection->generateGraphViz(OUTPUT_PATH + "intersection.dot");
+//        _intersection->generateAdjacencyList(OUTPUT_PATH + "intersection.txt");
+//
+//        Graph * _difference = GraphOperations::Difference(g1, g2);
+//        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
+//        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
+//
         vector<Node*> _redePert = GraphOperations::RedePert(g1);
-        PrintVector(_redePert);
+        //PrintVector(_redePert);
     }
 
     return 0;
