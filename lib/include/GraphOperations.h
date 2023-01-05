@@ -28,6 +28,8 @@ public:
     vector<Node *> AGRA(Graph *graph);
 
     void removeNodesFromVector(vector<Node *> &notSelectedNodes, Edge *edge) const;
+
+    bool compareSolutions(vector<Node *> &selectedNodes, vector<Node *> &solution) const;
 };
 
 #endif //TRABALHO_1_REFATORADO_GRAPHOPERATIONS_H

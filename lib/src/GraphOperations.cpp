@@ -364,29 +364,46 @@ vector<Node *> GraphOperations::AGRR(Graph *graph){
     vector<Node *> selectedNodes;
     vector<Node *> notSelectedNodes = graph->getAllNodes();
     Sort *sort = new Sort();
+    vector<Node *> solution;
+    vector<vector<Node *>> possibleSolutions;
+    int numInter = 10;
+    int i = 1;
+    float rangeUpdater = 0.6;
     //criterio
     sort->SortByWeightAndEdges(notSelectedNodes);
-    while(!notSelectedNodes.empty()){
-        int range = notSelectedNodes.size();
-        int randN = rand() % range + 0;
-        //adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
-        Node* selectedNode = notSelectedNodes.at(randN);
-        selectedNodes.push_back(selectedNode);
-        //removendo os adjacentes do selecionado dos não selecionados
-        for(auto edge: selectedNode->getAllUndirectedEdges()){
-            removeNodesFromVector(notSelectedNodes, edge);
+    while(i<numInter){
+        i++;
+        while(!notSelectedNodes.empty()){
+            int range = notSelectedNodes.size()/(10*rangeUpdater);
+            int randN = rand() % range + 0;
+            //adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
+            Node* selectedNode = notSelectedNodes.at(randN);
+            selectedNodes.push_back(selectedNode);
+            //removendo os adjacentes do selecionado dos não selecionados
+            for(auto edge: selectedNode->getAllUndirectedEdges()){
+                removeNodesFromVector(notSelectedNodes, edge);
+            }
+            auto it = notSelectedNodes.begin();
+            //removendo o nó
+            for( ; it != notSelectedNodes.end() ;it++){
+                if( (*it)->getID() == selectedNode->getID()){
+                    notSelectedNodes.erase(it);
+                }
+            }
+
+
         }
-        auto it = notSelectedNodes.begin();
-        //removendo o nó
-        for( ; it != notSelectedNodes.end() ;it++){
-            if( (*it)->getID() == selectedNode->getID()){
-                notSelectedNodes.erase(it);
+        possibleSolutions.push_back(selectedNodes);
+        if(!solution.empty()){
+            if(compareSolutions(selectedNodes, solution)){
+                solution = selectedNodes;
             }
         }
-
-
+        if(solution.empty()){
+            solution = selectedNodes;
+        }
     }
-    return selectedNodes;
+    return solution;
 }
 
 void GraphOperations::removeNodesFromVector(vector<Node *> &notSelectedNodes, Edge *edge) const {
@@ -405,29 +422,61 @@ void GraphOperations::removeNodesFromVector(vector<Node *> &notSelectedNodes, Ed
 vector<Node *> GraphOperations::AGRA(Graph *graph){
     vector<Node *> selectedNodes;
     vector<Node *> notSelectedNodes = graph->getAllNodes();
+    vector<Node *> solution;
+    vector<vector<Node *>> possibleSolutions;
     Sort *sort = new Sort();
+    int numInter = 10;
     int range = notSelectedNodes.size()/10;
     int randN = rand() % range + 0;
     int randomNode;
-    for(int i =0; i>randN;i++){
-        randomNode = rand() % (range * 10) + 0;
-        Node* selectedNode = notSelectedNodes.at(randomNode);
-        selectedNodes.push_back(selectedNode);
-        //removendo os adjacentes do selecionado dos não selecionados
-        for(auto edge: selectedNode->getAllUndirectedEdges()){
-            removeNodesFromVector(notSelectedNodes, edge);
+    int i = 1;
+    while(i < numInter){
+        i++;
+        for(int i =0; i>randN;i++){
+            randomNode = rand() % range + 0;
+            Node* selectedNode = notSelectedNodes.at(randomNode);
+            selectedNodes.push_back(selectedNode);
+            //removendo os adjacentes do selecionado dos não selecionados
+            for(auto edge: selectedNode->getAllUndirectedEdges()){
+                removeNodesFromVector(notSelectedNodes, edge);
+            }
         }
-    }
-    //criterio
-    sort->SortByWeightAndEdges(notSelectedNodes);
-    while (!notSelectedNodes.empty()){
-        Node* selectedNode = notSelectedNodes.back();
-        selectedNodes.push_back(selectedNode);
-        for(auto edge: selectedNode->getAllUndirectedEdges()){
-            removeNodesFromVector(notSelectedNodes, edge);
+        //criterio
+        sort->SortByWeightAndEdges(notSelectedNodes);
+        while (!notSelectedNodes.empty()){
+            Node* selectedNode = notSelectedNodes.back();
+            selectedNodes.push_back(selectedNode);
+            for(auto edge: selectedNode->getAllUndirectedEdges()){
+                removeNodesFromVector(notSelectedNodes, edge);
+            }
+            //removendo o nó
+            notSelectedNodes.pop_back();
         }
-        //removendo o nó
-        notSelectedNodes.pop_back();
+        possibleSolutions.push_back(selectedNodes);
+        if(!solution.empty()){
+            if(compareSolutions(selectedNodes, solution)){
+                solution = selectedNodes;
+            }
+        }
+        if(solution.empty()){
+            solution = selectedNodes;
+        }
+
+
+
     }
-    return selectedNodes;
+    return solution;
+}
+
+bool GraphOperations::compareSolutions(vector<Node *> &selectedNodes, vector<Node *> &solution) const {
+
+    float solutionWeight= 0;
+    float selectedNodesWeight= 0;
+    for(auto node: solution){
+        solutionWeight += node->getWeight();
+    }
+    for(auto node: selectedNodes){
+        selectedNodesWeight += node->getWeight();
+    }
+    return solutionWeight < selectedNodesWeight;
 }
