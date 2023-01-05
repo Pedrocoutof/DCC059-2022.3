@@ -13,7 +13,7 @@
 using namespace std;
 
 const string OUTPUT_PATH = "./lib/output/";
-const string INPUT_PATH = "./lib/input/";
+const string INPUT_PATH = "./lib/input/Instancias Subconjunto Dominante Ponderado/";
 
 void printError(int line, string arquivo ,string message){
     cerr <<  endl << "[ERRO - " + arquivo + " : " << line << "] " + message;
@@ -113,6 +113,42 @@ Graph * readFile(ifstream& input_file, bool directed, bool weightedEdge, bool we
 
 };
 
+Graph * readFilePartTwo(ifstream& input_file){
+    bool directed = false, weightedEdge = false, weightedNode = true;
+    int order = 0;
+    string line;
+    int weightNode = 0;
+
+    input_file >> line; // ignora primeira linha
+    input_file >> order;
+
+    Graph * graph = new Graph(order,directed,weightedEdge,weightedNode);
+
+    for( line.clear() ; line != "******************WEIGHTS*****************************"; input_file >> line){}
+
+    for(int i = 0; i < order ; i++){
+        input_file >> weightNode;
+        graph->insertNode(i, weightNode);
+    }
+
+    input_file >> line; // ignora primeira linha
+
+    int connected = 0;
+
+    for(int i = 0 ; i < order ; i++){
+        for(int j = 0 ; j < order ; j++){
+
+            input_file >> connected;
+
+            if( (connected == 1) && (i != j) )
+                graph->insertEdge(i, j, 0);
+
+        }
+    }
+
+    return graph;
+}
+
 void PrintVector(vector<Node*> v){
 
     for(auto i : v)
@@ -131,10 +167,14 @@ int main(int argc, char *argv[]) {
         file1 = selectFile();
         //file2 = selectFile();
 
-        bool directed = true, weightedEdge = true, weightedNode = false;
+        bool directed = false, weightedEdge = false, weightedNode = true;
 
-        Graph * g1 = readFile(file1, directed, weightedEdge, weightedNode);
-        //Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
+        Graph * g1 = readFilePartTwo(file1);
+        g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
+        g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
+
+
+//        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
 
 //        g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
 //        g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
@@ -152,8 +192,8 @@ int main(int argc, char *argv[]) {
 //        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
 //        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
 //
-        vector<Node*> _redePert = GraphOperations::RedePert(g1);
-        //PrintVector(_redePert);
+//        vector<Node*> _redePert = GraphOperations::RedePert(g1);
+//          PrintVector(_redePert);
     }
 
     return 0;
