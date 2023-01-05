@@ -356,3 +356,39 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
 
     return S;
 }
+
+// region Algoritmo Guloso
+
+float funcaoCriterio(Node * node){
+    return node->getWeight() / node->getAllUndirectedEdges().size();   
+}
+
+// Estrutura auxiliar para inserir de forma ordenada os nós na pq
+struct compBestNode{
+    bool operator() (Node* const n1, Node* const n2){
+            return funcaoCriterio(n1) < funcaoCriterio(n2);
+    }
+};
+
+vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
+
+    priority_queue<Node*, vector<Node*>, compBestNode> pq;
+    pq = priority_queue<Node*, vector<Node*>, compBestNode> ();
+
+    for(auto node : graph->getAllNodes()){
+        cout << endl << "Inserindo: " << node->getID();
+        pq.push(node);
+    }
+
+    while(!pq.empty()){
+        cout << endl << "ID: " << pq.top()->getID() << " : " << funcaoCriterio(pq.top());
+        pq.pop();
+    }
+
+
+    vector<Node*> v;
+    return v;
+
+}
+
+// enregion

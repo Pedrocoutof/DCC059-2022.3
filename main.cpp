@@ -170,8 +170,9 @@ int main(int argc, char *argv[]) {
         bool directed = false, weightedEdge = false, weightedNode = true;
 
         Graph * g1 = readFilePartTwo(file1);
-        g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
-        g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
+        //g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
+        //g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
+        GraphOperations::AlgortimoGuloso(g1);
 
 
 //        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);

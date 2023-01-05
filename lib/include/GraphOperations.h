@@ -23,6 +23,8 @@ public:
     static Graph * Difference(Graph * graph1, Graph * graph2);
     static vector<Node*> RedePert(Graph * graph);
 
+    static vector<Node*> AlgortimoGuloso(Graph * graph);
+
 };
 
 #endif //TRABALHO_1_REFATORADO_GRAPHOPERATIONS_H
