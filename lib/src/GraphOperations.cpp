@@ -2,6 +2,8 @@
 #include "../include/Graph.h"
 #include "../include/GraphOperations.h"
 #include "iostream"
+#include "../include/Sort.h"
+
 using namespace std;
 
 // region Aux functions
@@ -355,4 +357,73 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
     }
 
     return S;
+}
+
+//algoritmo guloso randomizado reativo
+vector<Node *> GraphOperations::AGRR(Graph *graph){
+    vector<Node *> selectedNodes;
+    vector<Node *> notSelectedNodes = graph->getAllNodes();
+    Sort *sort = new Sort();
+    sort->SortByWeightAndEdges(notSelectedNodes);
+    while(!notSelectedNodes.empty()){
+        int range = notSelectedNodes.size();
+        int randN = rand() % range + 0;
+        //adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
+        Node* selectedNode = notSelectedNodes.at(randN);
+        selectedNodes.push_back(selectedNode);
+        //removendo os adjacentes do selecionado dos não selecionados
+        for(auto edge: selectedNode->getAllUndirectedEdges()){
+            removeNodesFromVector(notSelectedNodes, edge);
+        }
+        auto it = notSelectedNodes.begin();
+
+        for( ; it != notSelectedNodes.end() ;it++){
+            if( (*it)->getID() == selectedNode->getID()){
+                notSelectedNodes.erase(it);
+            }
+        }
+
+
+    }
+    return selectedNodes;
+}
+
+void GraphOperations::removeNodesFromVector(vector<Node *> &notSelectedNodes, Edge *edge) const {
+    auto it = notSelectedNodes.begin();
+    for( ; it != notSelectedNodes.end() ;it++){
+        //se id do vértice for igual alvo da aresta remove
+        if( (*it)->getID() == edge->getTargetId()){
+            notSelectedNodes.erase(it);
+        }
+    }
+}
+
+
+
+//algoritmo guloso randomizado adaptativo
+vector<Node *> GraphOperations::AGRA(Graph *graph){
+    vector<Node *> selectedNodes;
+    vector<Node *> notSelectedNodes = graph->getAllNodes();
+    Sort *sort = new Sort();
+    int range = notSelectedNodes.size()/10;
+    int randN = rand() % range + 0;
+    int randomNode;
+    for(int i =0; i>randN;i++){
+        randomNode = rand() % (range * 10) + 0;
+        Node* selectedNode = notSelectedNodes.at(randomNode);
+        selectedNodes.push_back(selectedNode);
+        for(auto edge: selectedNode->getAllUndirectedEdges()){
+            removeNodesFromVector(notSelectedNodes, edge);
+        }
+    }
+    sort->SortByWeightAndEdges(notSelectedNodes);
+    while (!notSelectedNodes.empty()){
+        Node* selectedNode = notSelectedNodes.back();
+        selectedNodes.push_back(selectedNode);
+        for(auto edge: selectedNode->getAllUndirectedEdges()){
+            removeNodesFromVector(notSelectedNodes, edge);
+        }
+        notSelectedNodes.pop_back();
+    }
+    return selectedNodes;
 }

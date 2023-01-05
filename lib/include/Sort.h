@@ -30,6 +30,8 @@ public:
     static void SortByWeight(vector<Node*> &v);
     static void SortByWeight(vector<Edge*> &v);
 
+    void SortByWeightAndEdges(vector<Node *> &v);
+
 };
 
 #endif //TRABALHO_1_REFATORADO_SORT_H

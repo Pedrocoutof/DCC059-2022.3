@@ -23,6 +23,11 @@ public:
     static Graph * Difference(Graph * graph1, Graph * graph2);
     static vector<Node*> RedePert(Graph * graph);
 
+    vector<Node *> AGRR(Graph *graph);
+
+    vector<Node *> AGRA(Graph *graph);
+
+    void removeNodesFromVector(vector<Node *> &notSelectedNodes, Edge *edge) const;
 };
 
 #endif //TRABALHO_1_REFATORADO_GRAPHOPERATIONS_H

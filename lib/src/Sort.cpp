@@ -18,6 +18,15 @@ void Sort::SortByWeight(vector<Node*> &v){
     QuickSortNodeWeightAux(v, 0, v.size() - 1);
 };
 
+void Sort::SortByWeightAndEdges(vector<Node*> &v){
+    vector<Node*> aux(v);
+    for(auto node: aux){
+        float newWeight = node->getAllUndirectedEdges().size()/(node->getWeight());
+        node->setWeight(newWeight);
+    }
+    QuickSortNodeWeightAux(aux, 0, aux.size() - 1);
+};
+
 // region Ordenacao dos nós pelo id
 int Sort::PartitionNodeID(vector<Node*> &v, int start, int end){
     int pivot = end;
