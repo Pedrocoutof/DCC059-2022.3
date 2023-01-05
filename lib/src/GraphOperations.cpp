@@ -256,69 +256,97 @@ Graph *GraphOperations::Difference(Graph *g1, Graph *g2)
     }
 }
 
+bool nodeIsInSolution(vector<Node *> solution, Node *nodeSearch)
+{
+
+    if (solution.empty())
+        return true;
+
+    for (auto x : solution)
+    {
+        if (x->getID() == nodeSearch->getID())
+            return true;
+    }
+
+    return false;
+}
+
+bool verifyPred(Node *node, vector<Node *> solution)
+{
+    bool flag = false;
+
+    for (auto inputEdge : node->getAllInputEdges())
+    {
+        for (auto sNode : solution)
+        {
+            if (inputEdge->getTargetId() == sNode->getID())
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (flag == false)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool isInSol(Node *x, vector<Node*> S)
+{
+    for (auto predX : x->getAllInputEdges())
+        for (auto sol : S)
+            if (predX->getTargetId() != sol->getID())
+                return false;
+    return true;
+}
+
 vector<Node *> GraphOperations::RedePert(Graph *graph)
 {
     graph->generateGraphViz("./testegrafo.dot");
     graph->generateAdjacencyList("./testegrafoADJ.txt");
+
     // Este vetor armazenará a sequencia de nós (conjunto solução)
     vector<Node *> S;
-    int alpha[graph->getOrder()];
-    for (int i = 0; i < graph->getOrder(); i++)
-        alpha[i] = 0;
     S.clear();
+
+    int alpha[graph->getOrder()];
+    int beta[graph->getOrder()];
+    bool visited[graph->getOrder()];
+
+    for (int i = 0; i < graph->getOrder(); i++)
+    {
+        beta[i] = 0;
+        alpha[i] = 0;
+        visited[i] = false;
+    }
+
     int oldAlpha = 0;
     int newAlpha = 0;
 
     // Insere na solução todos os nós que nao possuem dependência
     for (auto node : graph->getAllNodes())
-    {
         if (node->getAllInputEdges().empty())
         {
             S.push_back(node);
-            alpha[node->getID() - 1] = 0; // alpha inicial
+            visited[node->getID() - 1] = true;
         }
-    }
-
-    for (auto node : graph->getAllNodes())
+    vector<Node *> NoList = graph->getAllNodes(); 
+    for (auto x : NoList)
     {
-        for (auto inputEdge : node->getAllInputEdges())
-        {
-            for (auto nodeSolution : S)
-            {
-                if (inputEdge->getTargetId() == nodeSolution->getID())
-                {
-
-                    oldAlpha = alpha[node->getID() - 1];
-                    newAlpha = inputEdge->getWeight() + alpha[nodeSolution->getID() - 1];
-
-                    /*if(node->getID() == 4){
-                        
-                        for (auto inputEdge : node->getAllInputEdges()){
-                            
-                            oldAlpha = alpha[node->getID() - 1];
-                            newAlpha = inputEdge->getWeight() + alpha[nodeSolution->getID() - 1];
-                         
-                            cout << "Predecessors: " << inputEdge->getTargetId() << "  |  Weight: " << inputEdge->getWeight() << endl ;
-                            cout << "OldAlpha: " << oldAlpha << "  |  NewAlpha:" << newAlpha << endl;
-
-                            if(newAlpha > oldAlpha){
-                                cout << "Novo alpha eh = " << newAlpha;
-                            }
-                         }
-                        }*/
-                    
-
-                    oldAlpha = alpha[node->getID() - 1];
-                    newAlpha = inputEdge->getWeight() + alpha[nodeSolution->getID() - 1];
-
-                    if (newAlpha > oldAlpha){
-                        cout <<"ID CARALHO: " << node->getID() <<  "OldAlpha: " << oldAlpha << "  |  NewAlpha:" << newAlpha << endl;
-                        alpha[node->getID() - 1] = newAlpha;
-                    }
-                    S.push_back(node);
-                }
+        for (auto nodeS : S)
+            if (x->getID() != nodeS->getID() && isInSol(x, S)){ //verifica a condiçao do enquanto
+                
+                
+                S.push_back(x);
+                 
             }
-        }
+        // Se nao cair na condição add dnv o vertice no e vai para o proximo
+        NoList.push_back(x);
+                
     }
 
     for (int i = 0; i < graph->getOrder(); i++)
