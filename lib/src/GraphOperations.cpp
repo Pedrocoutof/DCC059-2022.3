@@ -374,21 +374,70 @@ vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
 
     priority_queue<Node*, vector<Node*>, compBestNode> pq;
     pq = priority_queue<Node*, vector<Node*>, compBestNode> ();
+    vector<Node*> _solution;
+    _solution = vector<Node*>();
 
     for(auto node : graph->getAllNodes()){
-        cout << endl << "Inserindo: " << node->getID();
         pq.push(node);
     }
 
+
+
+    while(!pq.empty()) {
+
+        //Imprimindo o melhor pro pior no
+        priority_queue<Node *, vector<Node *>, compBestNode> aux;
+        aux = pq;
+        cout << endl << " === Melhores nos === ";
+        while(!aux.empty()){
+            cout << endl << "ID: " << aux.top()->getID() << " : " << funcaoCriterio(aux.top());
+            aux.pop();
+        }
+        cout << endl <<"================== " << endl;
+        // FIM IMPRESSÃO TESTE
+
+        // Insere o melhor nó na solução
+        Node *_bestNode = pq.top();
+        _solution.push_back(_bestNode);
+        pq.pop();
+
+
+
+        // Imprime predecessores
+//        cout << endl << "Melhor no encontrado: " << _bestNode->getID();
+//        for(auto adj : _bestNode->getAllUndirectedEdges()) {
+//            cout << endl << "Adj: " << adj->getTargetId();
+//        }
+        // FIM IMPRESSÃO TESTE
+
+        // remove todos vertices adjacentes do melhor nó da pq
+
+
+        // REMOVE TODOS OS ADJ DO NO DA SOLUÇÃO
+        // TODO : verificar se os nos adj são vértices de corte
+        for(auto adj : _bestNode->getAllUndirectedEdges()) {
+            //cout << endl << "Adj: " << adj->getTargetId();
+            aux = priority_queue<Node *, vector<Node *>, compBestNode> ();
+            while(!pq.empty()){
+
+                if(pq.top()->getID() !=  adj->getTargetId()){
+                    aux.push(pq.top());
+                }
+
+                pq.pop();
+            }
+            pq = aux;
+        }
+    }
+
+    vector<Node*> vector = std::vector<Node*>();
+
     while(!pq.empty()){
-        cout << endl << "ID: " << pq.top()->getID() << " : " << funcaoCriterio(pq.top());
+        vector.push_back(pq.top());
         pq.pop();
     }
 
-
-    vector<Node*> v;
-    return v;
-
+    return _solution;
 }
 
 // enregion

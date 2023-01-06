@@ -12,8 +12,8 @@
 
 using namespace std;
 
-const string OUTPUT_PATH = "./lib/output/";
-const string INPUT_PATH = "./lib/input/Instancias Subconjunto Dominante Ponderado/";
+const string OUTPUT_PATH = "../lib/output/";
+const string INPUT_PATH = "../lib/input/Instancias Subconjunto Dominante Ponderado/";
 
 void printError(int line, string arquivo ,string message){
     cerr <<  endl << "[ERRO - " + arquivo + " : " << line << "] " + message;
@@ -150,7 +150,7 @@ Graph * readFilePartTwo(ifstream& input_file){
 }
 
 void PrintVector(vector<Node*> v){
-
+    cout << endl;
     for(auto i : v)
         cout<< i->getID() <<" ";
 
@@ -170,9 +170,11 @@ int main(int argc, char *argv[]) {
         bool directed = false, weightedEdge = false, weightedNode = true;
 
         Graph * g1 = readFilePartTwo(file1);
-        //g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
-        //g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
-        GraphOperations::AlgortimoGuloso(g1);
+        g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
+        g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
+
+        PrintVector(GraphOperations::AlgortimoGuloso(g1));
+
 
 
 //        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);

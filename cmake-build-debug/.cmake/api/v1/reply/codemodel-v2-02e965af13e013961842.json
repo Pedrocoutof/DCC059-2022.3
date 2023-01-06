@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/ufjf/DCC059-2022.3/cmake-build-debug",
-		"source" : "D:/ufjf/DCC059-2022.3"
+		"build" : "H:/UFJF/2022.2/Grafos/DCC059-2022.3/cmake-build-debug",
+		"source" : "H:/UFJF/2022.2/Grafos/DCC059-2022.3"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 4
+		"minor" : 3
 	}
 }
