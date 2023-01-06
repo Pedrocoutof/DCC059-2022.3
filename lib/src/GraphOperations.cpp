@@ -359,14 +359,14 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
 
 // region Algoritmo Guloso
 
-float funcaoCriterio(Node * node){
+double funcaoCriterio(Node * node){
     return node->getWeight() / node->getAllUndirectedEdges().size();   
 }
 
 // Estrutura auxiliar para inserir de forma ordenada os nós na pq
 struct compBestNode{
     bool operator() (Node* const n1, Node* const n2){
-            return funcaoCriterio(n1) < funcaoCriterio(n2);
+            return funcaoCriterio(n1) > funcaoCriterio(n2);
     }
 };
 
