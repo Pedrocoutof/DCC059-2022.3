@@ -21,6 +21,7 @@ void Sort::SortByWeight(vector<Node*> &v){
 void Sort::SortByWeightAndEdges(vector<Node*> &v){
     vector<Node*> aux(v);
     for(auto node: aux){
+        //criterio
         float newWeight = node->getAllUndirectedEdges().size()/(node->getWeight());
         node->setWeight(newWeight);
     }

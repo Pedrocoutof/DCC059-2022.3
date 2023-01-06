@@ -361,20 +361,26 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
 
 //algoritmo guloso randomizado reativo
 vector<Node *> GraphOperations::AGRR(Graph *graph){
+    //nos da solução
     vector<Node *> selectedNodes;
+    //lista de candidatos
     vector<Node *> notSelectedNodes = graph->getAllNodes();
     Sort *sort = new Sort();
+    //solução final
     vector<Node *> solution;
+    //lista de todas as soluções encontradas
     vector<vector<Node *>> possibleSolutions;
     int numInter = 10;
     int i = 1;
     float rangeUpdater = 0.6;
     //criterio
+    //ordena a lista de candidatos de acordo com o critério
     sort->SortByWeightAndEdges(notSelectedNodes);
+    float alfa = 0.1;
     while(i<numInter){
         i++;
         while(!notSelectedNodes.empty()){
-            int range = notSelectedNodes.size()/(10*rangeUpdater);
+            int range = notSelectedNodes.size()*alfa*rangeUpdater;
             int randN = rand() % range + 0;
             //adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
             Node* selectedNode = notSelectedNodes.at(randN);
@@ -420,13 +426,18 @@ void GraphOperations::removeNodesFromVector(vector<Node *> &notSelectedNodes, Ed
 
 //algoritmo guloso randomizado adaptativo
 vector<Node *> GraphOperations::AGRA(Graph *graph){
+    //nos da solução
     vector<Node *> selectedNodes;
+    //lista de candidatos
     vector<Node *> notSelectedNodes = graph->getAllNodes();
+    //solução final
     vector<Node *> solution;
+    //lista de todas as soluções encontrada
     vector<vector<Node *>> possibleSolutions;
     Sort *sort = new Sort();
     int numInter = 10;
-    int range = notSelectedNodes.size()/10;
+    float alfa = 0.1;
+    int range = notSelectedNodes.size()*alfa;
     int randN = rand() % range + 0;
     int randomNode;
     int i = 1;
@@ -442,6 +453,7 @@ vector<Node *> GraphOperations::AGRA(Graph *graph){
             }
         }
         //criterio
+        //ordenando a lista de nós de acordo com o critério
         sort->SortByWeightAndEdges(notSelectedNodes);
         while (!notSelectedNodes.empty()){
             Node* selectedNode = notSelectedNodes.back();
