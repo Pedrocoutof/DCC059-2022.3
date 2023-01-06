@@ -326,6 +326,87 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
 
     int oldAlpha = 0;
     int newAlpha = 0;
+    int edgeWeight = 0;
+    int contagem = 0;
+    // Insere na solução todos os nós que nao possuem dependência
+    for (auto node : graph->getAllNodes())
+        if (node->getAllInputEdges().empty())
+        {
+            S.push_back(node);
+        }
+    vector<Node *> NoList;
+    NoList.clear();
+    for (auto x : graph->getAllNodes())
+    {
+        oldAlpha = 0;
+        contagem = x->getInDegree();
+        for (auto sol : S)
+        {
+            if (x->searchInputEdge(sol->getID()))
+            {
+                cout<<"Dentro do 1 for: ID: "<<x->getID()<<" Alpha: " << alpha[x->getID() - 1] << "\n";
+                newAlpha = sol->getEdge(x->getID())->getWeight() + alpha[x->getID() - 1];
+                if (newAlpha > oldAlpha)
+                    oldAlpha = newAlpha;
+            }
+        }
+        if (isInSol(x, S))
+        {
+            alpha[x->getID() - 1] = oldAlpha;
+            S.push_back(x);
+
+            for (auto y : graph->getAllNodes())
+            {
+                oldAlpha = 0;
+                for (auto sol : S)
+                {
+                    if (y->searchInputEdge(sol->getID()))
+                    {
+                        cout<<"Dentro do 2 for: ID: "<<y->getID()<<" Alpha: " << alpha[y->getID() - 1]<<endl;
+                        newAlpha = sol->getEdge(y->getID())->getWeight() + alpha[y->getID() - 1];
+                        if (newAlpha > oldAlpha)
+                            oldAlpha = newAlpha;
+                    }
+                }
+                if (isInSol(x, S))
+                {
+                    alpha[y->getID() - 1] = oldAlpha;
+                    S.push_back(y);
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < graph->getOrder(); i++)
+    {
+        cout << "\n\nNo: " << graph->getNode(i + 1)->getID() << "  Alpha: " << alpha[i] << "\n";
+    }
+
+    return S;
+}
+
+vector<Node *> GraphOperations::RedePert3(Graph *graph)
+{
+    graph->generateGraphViz("./testegrafo.dot");
+    graph->generateAdjacencyList("./testegrafoADJ.txt");
+
+    // Este vetor armazenará a sequencia de nós (conjunto solução)
+    vector<Node *> S;
+    S.clear();
+
+    int alpha[graph->getOrder()];
+    int beta[graph->getOrder()];
+    bool visited[graph->getOrder()];
+
+    for (int i = 0; i < graph->getOrder(); i++)
+    {
+        beta[i] = 0;
+        alpha[i] = 0;
+        visited[i] = false;
+    }
+
+    int oldAlpha = 0;
+    int newAlpha = 0;
 
     // Insere na solução todos os nós que nao possuem dependência
     for (auto node : graph->getAllNodes())
@@ -341,7 +422,7 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
             if (x->getID() != nodeS->getID() && isInSol(x, S))
             { // verifica a condiçao do enquanto
 
-                cout<<"teste antes";
+                cout << "teste antes";
                 for (auto nodeSol : S)
                 {
                     oldAlpha = alpha[x->getID() - 1];
@@ -369,7 +450,7 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
                 //         }
                 //     }
                 // }
-                cout<<"teste dps";
+                cout << "teste dps";
             }
             else
             {
@@ -428,7 +509,7 @@ vector<Node *> GraphOperations::RedePert2(Graph *graph)
     {
         Node *x = q.front();
 
-        cout << "\nID: " <<  x->getID();
+        cout << "\nID: " << x->getID();
 
         // Verifico se todos os predecessores de x foram atingidos
         bool predsInSolution = true;
@@ -446,8 +527,8 @@ vector<Node *> GraphOperations::RedePert2(Graph *graph)
                     q.pop();
                     break;
                 }
-                
-                else if(pred->getTargetId() == x->getAllInputEdges().back()->getTargetId())
+
+                else if (pred->getTargetId() == x->getAllInputEdges().back()->getTargetId())
                 {
                     S.push_back(x);
                     q.pop();
@@ -456,7 +537,8 @@ vector<Node *> GraphOperations::RedePert2(Graph *graph)
         }
     }
 
-    for(auto x : S){
+    for (auto x : S)
+    {
         cout << x->getID() << " ";
     }
 

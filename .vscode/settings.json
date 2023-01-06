@@ -3,6 +3,7 @@
         "memory": "cpp",
         "istream": "cpp",
         "functional": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "random": "cpp"
     }
 }
