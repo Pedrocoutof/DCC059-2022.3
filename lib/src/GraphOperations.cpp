@@ -441,6 +441,9 @@ vector<Node *> GraphOperations::AGRA(Graph *graph){
     int randN = rand() % range + 0;
     int randomNode;
     int i = 1;
+    //criterio
+    //ordenando a lista de nós de acordo com o critério
+    sort->SortByWeightAndEdges(notSelectedNodes);
     while(i < numInter){
         i++;
         for(int i =0; i>randN;i++){
@@ -452,9 +455,7 @@ vector<Node *> GraphOperations::AGRA(Graph *graph){
                 removeNodesFromVector(notSelectedNodes, edge);
             }
         }
-        //criterio
-        //ordenando a lista de nós de acordo com o critério
-        sort->SortByWeightAndEdges(notSelectedNodes);
+
         while (!notSelectedNodes.empty()){
             Node* selectedNode = notSelectedNodes.back();
             selectedNodes.push_back(selectedNode);
