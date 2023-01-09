@@ -300,8 +300,8 @@ bool isInSol(Node *x, vector<Node *> S)
     for (auto predX : x->getAllInputEdges())
         for (auto sol : S)
             if (predX->getTargetId() != sol->getID())
-                return false;
-    return true;
+                return true;
+    return false;
 }
 
 vector<Node *> GraphOperations::RedePert(Graph *graph)
@@ -321,7 +321,6 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
     {
         beta[i] = 0;
         alpha[i] = 0;
-        visited[i] = false;
     }
 
     int oldAlpha = 0;
@@ -336,7 +335,7 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
         }
     vector<Node *> NoList;
     NoList.clear();
-    for (auto x : graph->getAllNodes())
+    for (auto x : graph->getAllNodes()) // CALCULA ALPHA
     {
         oldAlpha = 0;
         contagem = x->getInDegree();
@@ -344,16 +343,21 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
         {
             if (x->searchInputEdge(sol->getID()))
             {
-                cout<<"Dentro do 1 for: ID: "<<x->getID()<<" Alpha: " << alpha[x->getID() - 1] << "\n";
-                newAlpha = sol->getEdge(x->getID())->getWeight() + alpha[x->getID() - 1];
+                // cout << "Dentro do 1 for: ID: " << x->getID() << " Alpha: " << alpha[x->getID() - 1] << "\n";
+                newAlpha = sol->getEdge(x->getID())->getWeight() + alpha[sol->getID() - 1];
+                // cout << "Peso aresta: " << sol->getEdge(x->getID())->getWeight() << endl;
+                // cout << "New alpha: " << newAlpha << " Old alpha: " << oldAlpha << endl;
                 if (newAlpha > oldAlpha)
                     oldAlpha = newAlpha;
+                // cout << "Old alpha: " << oldAlpha << endl
+                    //  << "==========" << endl;
             }
         }
         if (isInSol(x, S))
         {
+            // cout << "No: " << x->getID() << " entrou, Peso oldAlpha: " << oldAlpha << endl;
             alpha[x->getID() - 1] = oldAlpha;
-            S.push_back(x);
+            // S.push_back(x);
 
             for (auto y : graph->getAllNodes())
             {
@@ -362,13 +366,16 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
                 {
                     if (y->searchInputEdge(sol->getID()))
                     {
-                        cout<<"Dentro do 2 for: ID: "<<y->getID()<<" Alpha: " << alpha[y->getID() - 1]<<endl;
-                        newAlpha = sol->getEdge(y->getID())->getWeight() + alpha[y->getID() - 1];
+                        // cout << "Dentro do 2 for: ID: " << y->getID() << " Alpha: " << alpha[y->getID() - 1] << endl;
+                        newAlpha = sol->getEdge(y->getID())->getWeight() + alpha[sol->getID() - 1];
+                        // cout << "Peso aresta: " << sol->getEdge(y->getID())->getWeight() << endl;
+                        // cout << "New alpha: " << newAlpha << " Old alpha: " << oldAlpha << endl
+                            //  << endl;
                         if (newAlpha > oldAlpha)
                             oldAlpha = newAlpha;
                     }
                 }
-                if (isInSol(x, S))
+                if (isInSol(y, S))
                 {
                     alpha[y->getID() - 1] = oldAlpha;
                     S.push_back(y);
@@ -379,7 +386,7 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
 
     for (int i = 0; i < graph->getOrder(); i++)
     {
-        cout << "\n\nNo: " << graph->getNode(i + 1)->getID() << "  Alpha: " << alpha[i] << "\n";
+        cout << "\nNo: " << graph->getNode(i + 1)->getID() << "  Alpha: " << alpha[i] << "\n";
     }
 
     return S;

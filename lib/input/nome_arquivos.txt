@@ -16,3 +16,4 @@ GAD_1.txt
 GAD_2.txt
 GAD_1_ponderado.txt
 redePertTest.txt
+redePertTest2.txt
