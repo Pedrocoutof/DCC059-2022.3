@@ -360,9 +360,9 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
 
 int statusNode[999];
 
-void zeraStatus(){
+void defaultStatus(int status){
     for(int i = 0; i < 999; i++){
-        statusNode[i] = 0;
+        statusNode[i] = status;
     }
 }
 
@@ -383,19 +383,82 @@ double funcaoCriterio(Node * node){
         if(getStatus(edge->getTargetId()) == 0)
             n_nodesNotAdj++;
 
-    return node->getWeight() / (n_nodesNotAdj + 1.0);
+    return  (n_nodesNotAdj + 1.0) / node->getWeight();
 }
 
 // Estrutura auxiliar para inserir de forma ordenada os nós na pq
 struct compBestNode{
     bool operator() (Node* const n1, Node* const n2){
-            return funcaoCriterio(n1) > funcaoCriterio(n2);
+            return funcaoCriterio(n1) < funcaoCriterio(n2);
     }
 };
 
+/*
+ * Caso o status = 0 -> Não visitado
+ *               = 1 -> Adjacente a Solução
+ */
+vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
+    const int N_SOL_ADJ = 0;
+    const int ADJ_SOL = 1;
+    const int SOL = 2;
+    priority_queue<Node*, vector<Node*>, compBestNode> candidatos = priority_queue<Node*, vector<Node*>, compBestNode> ();
+    vector<Node*> _solution = vector<Node*>();
+    defaultStatus(N_SOL_ADJ);
+
+    for(auto node : graph->getAllNodes()){
+        candidatos.push(node);
+    }
+
+    while(!candidatos.empty()) {
+        priority_queue<Node *, vector<Node *>, compBestNode> aux = candidatos;
+
+//        IMPRESSÃO TESTE
+//        cout << endl << " === Melhores nos === ";
+//        while(!aux.empty()){
+//            cout << endl << "ID: " << aux.top()->getID() << " : " << funcaoCriterio(aux.top());
+//            aux.pop();
+//        }
+//        cout << endl <<"================== " << endl;
+//        FIM IMPRESSÃO TESTE
+
+//        Pegamos o melhor nó
+        Node * _bestNode = candidatos.top();
+
+//      Insere ele na solução
+        _solution.push_back(_bestNode);
+        setStatus(_bestNode->getID(), SOL);
+
+//      Remove ele da fila de candidatos
+        candidatos.pop();
+
+//      Agora, deve 'setar' todos seus adj como 'ADJ_SOL'
+        for(auto edge : _bestNode->getAllUndirectedEdges()){
+            setStatus(edge->getTargetId(), ADJ_SOL);
+        }
+
+//      Remove os que são adj a solução da lista de candidatos
+        aux = candidatos;
+        candidatos = priority_queue<Node *, vector<Node *>, compBestNode>();
+        while(!aux.empty()){
+
+//            Caso o nó não estiver contemplado
+            if(getStatus(aux.top()->getID()) == N_SOL_ADJ){
+                candidatos.push(aux.top());
+            }
+
+            aux.pop();
+        }
+
+    }
+
+    return _solution;
+}
+
+// enregion
 
 
-/*Esse ta certo
+
+/* Solução antiga
 vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
 
     priority_queue<Node*, vector<Node*>, compBestNode> pq;
@@ -453,64 +516,3 @@ vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
     return _solution;
 }
 */
-
-/*
- * Caso o status = 0 -> Não visitado
- *               = 1 -> Adjacente a Solução
- */
-
-vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
-    const int N_SOL_ADJ = 0;
-    const int ADJ_SOL = 1;
-    const int SOL = 2;
-    priority_queue<Node*, vector<Node*>, compBestNode> candidatos = priority_queue<Node*, vector<Node*>, compBestNode> ();
-    vector<Node*> _solution = vector<Node*>();
-    zeraStatus();
-
-
-    for(auto node : graph->getAllNodes()){
-        candidatos.push(node);
-    }
-
-    while(!candidatos.empty()) {
-        priority_queue<Node *, vector<Node *>, compBestNode> aux = candidatos;
-
-        cout << endl << " === Melhores nos === ";
-        while(!aux.empty()){
-            cout << endl << "ID: " << aux.top()->getID() << " : " << funcaoCriterio(aux.top());
-            aux.pop();
-        }
-        cout << endl <<"================== " << endl;
-        // FIM IMPRESSÃO TESTE
-
-        //Pegamos o melhor nó
-        Node * _bestNode = candidatos.top();
-
-        // Insere ele na solução
-        _solution.push_back(_bestNode);
-        setStatus(_bestNode->getID(), 2);
-
-        // Remove ele da fila de candidatos
-        candidatos.pop();
-
-        // Agora, deve 'setar' todos seus adj como 'ADJ_SOL'
-        for(auto edge : _bestNode->getAllUndirectedEdges()){
-            setStatus(edge->getTargetId(), ADJ_SOL);
-        }
-
-        // Remove os que são adj a solução da lista de candidatos
-        aux = candidatos;
-        candidatos = priority_queue<Node *, vector<Node *>, compBestNode>();
-        while(!aux.empty()){
-            if(getStatus(aux.top()->getID()) == 0){
-                candidatos.push(aux.top());
-            }
-            aux.pop();
-        }
-
-    }
-
-    return _solution;
-}
-
-// enregion
