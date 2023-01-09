@@ -12,14 +12,6 @@ Graph::Graph(int order, bool directed, bool weighted_edge, bool weighted_node){
     this->nodes.clear();
 }
 
-int Graph::getNumNodesVisited(){
-    int counter = 0;
-    for(auto node : this->nodes)
-        if(node->getVisited())
-            counter++;
-
-    return counter;
-}
 
 Graph::~Graph() {}
 
@@ -186,7 +178,7 @@ void Graph::generateGraphVizUndirected(ofstream& outFile) {
 
     if(this->weighted_node){
         for(auto node : this->nodes){
-            outFile << endl << node->getID() << "[label=" << node->getWeight() << "]";
+            outFile << endl << node->getID() << "[label=ID" << node->getID() << "peso" << node->getWeight() << "]";
         }
     }
 

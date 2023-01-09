@@ -173,7 +173,15 @@ int main(int argc, char *argv[]) {
         g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
         g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
 
-        PrintVector(GraphOperations::AlgortimoGuloso(g1));
+        vector<Node*> _solution = GraphOperations::AlgortimoGuloso(g1);
+
+        int sum = 0;
+        for(auto node : _solution){
+            cout << endl << "ID: " << node->getID() << "\tPeso: " << node->getWeight() << "\tTotal:" << sum ;
+            sum += node->getWeight();
+        }
+
+        cout << endl << " = " << sum;
 
 
 

@@ -15,7 +15,6 @@ class Node{
 private:
     int id;
     float weight;
-    bool visited;
     vector<Edge*> fan_out;
     vector<Edge*> fan_in;
     vector<Edge*> fan;
@@ -32,9 +31,6 @@ public:
 
     int getID();
     float getWeight();
-
-    bool getVisited();
-    void setVisited(bool visited);
 
     int getOutDegree();
     int getInDegree();
