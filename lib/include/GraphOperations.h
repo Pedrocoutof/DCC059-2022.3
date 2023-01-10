@@ -25,6 +25,10 @@ public:
 
     static vector<Node*> AlgortimoGuloso(Graph * graph);
 
+    static vector<Node *> AGRA(Graph *graph);
+    static vector<Node *> AGRR(Graph *graph);
+
+    static bool compareSolutions(vector<Node *> &selectedNodes, vector<Node *> &solution);
 };
 
 #endif //TRABALHO_1_REFATORADO_GRAPHOPERATIONS_H
