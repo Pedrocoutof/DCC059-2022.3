@@ -412,7 +412,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph){
     return solution;
 }
 
-void GraphOperations::removeNodesFromVector(vector<Node *> &notSelectedNodes, Edge *edge) const {
+void GraphOperations::removeNodesFromVector(vector<Node *> &notSelectedNodes, Edge *edge){
     auto it = notSelectedNodes.begin();
     for( ; it != notSelectedNodes.end() ;it++){
         //se id do vértice for igual alvo da aresta remove
@@ -481,7 +481,7 @@ vector<Node *> GraphOperations::AGRA(Graph *graph){
     return solution;
 }
 
-bool GraphOperations::compareSolutions(vector<Node *> &selectedNodes, vector<Node *> &solution) const {
+bool GraphOperations::compareSolutions(vector<Node *> &selectedNodes, vector<Node *> &solution){
 
     float solutionWeight= 0;
     float selectedNodesWeight= 0;

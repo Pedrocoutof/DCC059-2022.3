@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
         file1 = selectFile();
         //file2 = selectFile();
 
-        bool directed = true, weightedEdge = true, weightedNode = false;
+        bool directed = false, weightedEdge = false, weightedNode = true;
 
         Graph * g1 = readFile(file1, directed, weightedEdge, weightedNode);
         //Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);

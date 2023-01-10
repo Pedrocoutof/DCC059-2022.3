@@ -313,7 +313,8 @@ CMakeFiles/Trabalho_1_Refatorado.dir/lib/src/GraphOperations.cpp.obj: ../lib/src
   C:/Program\ Files/JetBrains/CLion\ 2022.2.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h \
   ../lib/include/GraphOperations.h \
   ../lib/include/Graph.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.2.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream
+  C:/Program\ Files/JetBrains/CLion\ 2022.2.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
+  ../lib/include/Sort.h
 
 CMakeFiles/Trabalho_1_Refatorado.dir/lib/src/Node.cpp.obj: ../lib/src/Node.cpp \
   ../lib/include/Node.h \
