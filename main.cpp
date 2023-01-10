@@ -13,7 +13,7 @@
 using namespace std;
 
 const string OUTPUT_PATH = "./lib/output/";
-const string INPUT_PATH = "./lib/input/";
+const string INPUT_PATH = "./../lib/input/";
 
 void printError(int line, string arquivo ,string message){
     cerr <<  endl << "[ERRO - " + arquivo + " : " << line << "] " + message;
