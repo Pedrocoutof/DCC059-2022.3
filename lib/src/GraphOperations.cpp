@@ -470,9 +470,8 @@ vector<Node *> GraphOperations::AGRR(Graph *graph){
     vector<Node *> solution;
     //lista de todas as soluções encontradas
     vector<vector<Node *>> possibleSolutions;
-    int numInter = 10;
+    int numInter = 2500;
     int i = 1;
-    float rangeUpdater = 0.6;
     //criterio
     //ordena a lista de candidatos de acordo com o critério
     sort->SortByWeightAndEdges(candidatos);
@@ -482,7 +481,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph){
     while(i<=numInter){
         i++;
         while(!candidatos.empty()){
-            int range = (candidatos.size()*alfa*rangeUpdater)+1;
+            int range = (candidatos.size()*alfa)+1;
             int randN = rand() % range + 0;
             //adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
             Node* selectedNode = candidatos.at(randN);
@@ -540,7 +539,7 @@ vector<Node *> GraphOperations::AGRA(Graph *graph){
     //lista de todas as soluções encontrada
     vector<vector<Node *>> possibleSolutions;
     Sort *sort = new Sort();
-    int numInter = 10;
+    int numInter = 500;
     float alfa = 0.1;
     int range = candidatos.size() * alfa;
     int randN = rand() % range + 2;
