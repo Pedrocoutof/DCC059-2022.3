@@ -26,7 +26,7 @@ public:
     static vector<Node*> AlgortimoGuloso(Graph * graph);
 
     static vector<Node *> AGRA(Graph *graph, float);
-    static vector<Node *> AGRR(Graph *graph, float);
+    static vector<Node *> AGRR(Graph *graph, float alfa, float bestLiteratura);
 
     static bool compareSolutions(vector<Node *> &selectedNodes, vector<Node *> &solution);
 };

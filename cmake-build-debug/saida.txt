@@ -1,0 +1,25 @@
+Arquivo 50_50: 
+Para Alfa: 0.15
+Tempo para iteração 1: 0.002
+Soma: 820
+Tempo para iteração 2: 0.001
+Soma: 790
+Tempo para iteração 3: 0.001
+Soma: 807
+Tempo para iteração 4: 0.002
+Soma: 798
+Tempo para iteração 5: 0.001
+Soma: 813
+Tempo para iteração 6: 0.002
+Soma: 789
+Tempo para iteração 7: 0.001
+Soma: 823
+Tempo para iteração 8: 0.001
+Soma: 794
+Tempo para iteração 9: 0.001
+Soma: 837
+Tempo para iteração 10: 0.001
+Soma: 834
+Media: 810.5
+Media Tempo: 0.0013
+
