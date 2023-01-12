@@ -1,0 +1,73 @@
+Arquivo 50_50: 
+Para Alfa: 0.15
+Tempo para iteração 1: 0.000629
+Soma: 824
+Tempo para iteração 2: 0.000597
+Soma: 796
+Tempo para iteração 3: 0.000661
+Soma: 796
+Tempo para iteração 4: 0.000601
+Soma: 796
+Tempo para iteração 5: 0.000568
+Soma: 796
+Tempo para iteração 6: 0.00069
+Soma: 796
+Tempo para iteração 7: 0.000671
+Soma: 796
+Tempo para iteração 8: 0.000515
+Soma: 796
+Tempo para iteração 9: 0.000489
+Soma: 796
+Tempo para iteração 10: 0.000485
+Soma: 796
+Media: 798.8
+Media Tempo: 0.0005906
+
+Para Alfa: 0.3
+Tempo para iteração 1: 0.000638
+Soma: 796
+Tempo para iteração 2: 0.000496
+Soma: 796
+Tempo para iteração 3: 0.000588
+Soma: 796
+Tempo para iteração 4: 0.000645
+Soma: 796
+Tempo para iteração 5: 0.000696
+Soma: 796
+Tempo para iteração 6: 0.000516
+Soma: 796
+Tempo para iteração 7: 0.000504
+Soma: 796
+Tempo para iteração 8: 0.000492
+Soma: 796
+Tempo para iteração 9: 0.000568
+Soma: 796
+Tempo para iteração 10: 0.000548
+Soma: 796
+Media: 796
+Media Tempo: 0.0005691
+
+Para Alfa: 0.5
+Tempo para iteração 1: 0.000598
+Soma: 796
+Tempo para iteração 2: 0.000666
+Soma: 796
+Tempo para iteração 3: 0.000657
+Soma: 796
+Tempo para iteração 4: 0.000538
+Soma: 796
+Tempo para iteração 5: 0.000495
+Soma: 796
+Tempo para iteração 6: 0.000522
+Soma: 796
+Tempo para iteração 7: 0.000621
+Soma: 796
+Tempo para iteração 8: 0.000741
+Soma: 796
+Tempo para iteração 9: 0.000957
+Soma: 796
+Tempo para iteração 10: 0.000684
+Soma: 796
+Media: 796
+Media Tempo: 0.0006479
+

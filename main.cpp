@@ -12,108 +12,118 @@
 
 using namespace std;
 
-const string OUTPUT_PATH = "../lib/output/";
-const string INPUT_PATH = "../lib/input/Instancias Subconjunto Dominante Ponderado/";
+const string OUTPUT_PATH = "./lib/output/";
+const string INPUT_PATH = "./lib/input/";
 
-void printError(int line, string arquivo ,string message){
-    cerr <<  endl << "[ERRO - " + arquivo + " : " << line << "] " + message;
+void printError(int line, string arquivo, string message)
+{
+    cerr << endl
+         << "[ERRO - " + arquivo + " : " << line << "] " + message;
 }
 
-ifstream selectFile(){
+ifstream selectFile()
+{
 
     ifstream nameFiles;
     nameFiles.open(INPUT_PATH + "nome_arquivos.txt");
 
-    if(nameFiles.is_open()){
+    if (nameFiles.is_open())
+    {
 
         string name_title;
         int idSelected = -1;
 
-        for(int id = 0; nameFiles.peek() != EOF; id++){
+        for (int id = 0; nameFiles.peek() != EOF; id++)
+        {
             nameFiles >> name_title;
-            cout << endl << "[" << id << "] - " << name_title;
+            cout << endl
+                 << "[" << id << "] - " << name_title;
         }
 
-        cout << endl << "\t>> ";
+        cout << endl
+             << "\t>> ";
         cin >> idSelected;
         nameFiles.clear();
         nameFiles.seekg(0);
 
-        for(int id = 0; nameFiles.peek() != EOF; id++){
+        for (int id = 0; nameFiles.peek() != EOF; id++)
+        {
             nameFiles >> name_title;
-            if(idSelected == id)
+            if (idSelected == id)
             {
                 ifstream selectedFile;
                 selectedFile.open(INPUT_PATH + name_title);
                 return selectedFile;
             }
         }
-
     }
     printError(__LINE__, "main", "Nao foi possivel abrir arquivo selecionado");
     exit(-1);
 }
 
-Graph * readFile(ifstream& input_file, bool directed, bool weightedEdge, bool weightedNode){
-    //Variáveis para auxiliar na criação dos nós no Grafo
+Graph *readFile(ifstream &input_file, bool directed, bool weightedEdge, bool weightedNode)
+{
+    // Variáveis para auxiliar na criação dos nós no Grafo
     int idNodeSource;
     int idNodeTarget;
     int order;
 
     input_file >> order;
 
-    Graph * graph = new Graph(order, directed, weightedEdge, weightedNode);
+    Graph *graph = new Graph(order, directed, weightedEdge, weightedNode);
 
     // Sem peso nas arestas e no nó
-    if(!graph->isWeightedEdge() && !graph->isWeightedNode()){
-        while(input_file >> idNodeSource >> idNodeTarget) {
+    if (!graph->isWeightedEdge() && !graph->isWeightedNode())
+    {
+        while (input_file >> idNodeSource >> idNodeTarget)
+        {
             graph->insertEdge(idNodeSource, idNodeTarget, 0);
         }
     }
 
     // Peso nas arestas
-    else if(graph->isWeightedEdge() && !graph->isWeightedNode() ){
+    else if (graph->isWeightedEdge() && !graph->isWeightedNode())
+    {
         float edgeWeight;
-        while(input_file >> idNodeSource >> idNodeTarget >> edgeWeight) {
+        while (input_file >> idNodeSource >> idNodeTarget >> edgeWeight)
+        {
 
             graph->insertEdge(idNodeSource, idNodeTarget, edgeWeight);
-
         }
-
     }
 
     // Peso nos nós
-    else if(graph->isWeightedNode() && !graph->isWeightedEdge()){
+    else if (graph->isWeightedNode() && !graph->isWeightedEdge())
+    {
         float nodeSourceWeight, nodeTargetWeight;
 
-        while(input_file >> idNodeSource >> nodeSourceWeight >> idNodeTarget >> nodeTargetWeight) {
+        while (input_file >> idNodeSource >> nodeSourceWeight >> idNodeTarget >> nodeTargetWeight)
+        {
 
             graph->insertEdge(idNodeSource, idNodeTarget, 0);
             graph->getNode(idNodeSource)->setWeight(nodeSourceWeight);
             graph->getNode(idNodeTarget)->setWeight(nodeTargetWeight);
-
         }
-
     }
 
     // Peso nas arestas e nós
-    else if(graph->isWeightedNode() && graph->isWeightedEdge()){
+    else if (graph->isWeightedNode() && graph->isWeightedEdge())
+    {
         float nodeSourceWeight, nodeTargetWeight, edgeWeight;
-        while(input_file >> idNodeSource >> nodeSourceWeight >> idNodeTarget >> nodeTargetWeight) {
+        while (input_file >> idNodeSource >> nodeSourceWeight >> idNodeTarget >> nodeTargetWeight)
+        {
 
             graph->insertEdge(idNodeSource, idNodeTarget, edgeWeight);
             graph->getNode(idNodeSource)->setWeight(nodeSourceWeight);
             graph->getNode(idNodeTarget)->setWeight(nodeTargetWeight);
-
         }
-
     }
 
     return graph;
-
 };
 
-Graph * readFilePartTwo(ifstream& input_file){
+Graph *readFilePartTwo(ifstream &input_file)
+{
     bool directed = false, weightedEdge = false, weightedNode = true;
     int order = 0;
     string line;
@@ -122,11 +132,14 @@ Graph * readFilePartTwo(ifstream& input_file){
     input_file >> line; // ignora primeira linha
     input_file >> order;
 
-    Graph * graph = new Graph(order,directed,weightedEdge,weightedNode);
+    Graph *graph = new Graph(order, directed, weightedEdge, weightedNode);
 
-    for( line.clear() ; line != "******************WEIGHTS*****************************"; input_file >> line){}
+    for (line.clear(); line != "******************WEIGHTS*****************************"; input_file >> line)
+    {
+    }
 
-    for(int i = 0; i < order ; i++){
+    for (int i = 0; i < order; i++)
+    {
         input_file >> weightNode;
         graph->insertNode(i, weightNode);
     }
@@ -135,76 +148,165 @@ Graph * readFilePartTwo(ifstream& input_file){
 
     int connected = 0;
 
-    for(int i = 0 ; i < order ; i++){
-        for(int j = 0 ; j < order ; j++){
+    for (int i = 0; i < order; i++)
+    {
+        for (int j = 0; j < order; j++)
+        {
 
             input_file >> connected;
 
-            if( (connected == 1) && (i != j) )
+            if ((connected == 1) && (i != j))
                 graph->insertEdge(i, j, 0);
-
         }
     }
 
     return graph;
 }
 
-void PrintVector(vector<Node*> v){
+void PrintVector(vector<Node *> v)
+{
     cout << endl;
-    for(auto i : v)
-        cout<< i->getID() <<" ";
+    for (auto i : v)
+        cout << i->getID() << " ";
 
-    cout<<"\n\n";
+    cout << "\n\n";
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
+    if (argc != 6)
+    {
+        // printError(__LINE__, "main", "Nao foi passado o numero de parametros correto.");
 
-    if(argc != 6){
-        //printError(__LINE__, "main", "Nao foi passado o numero de parametros correto.");
-
-        ifstream file1, file2;
+        ifstream file1, file2, file3;
         file1 = selectFile();
-        //file2 = selectFile();
+        // file2 = selectFile();
 
         bool directed = false, weightedEdge = false, weightedNode = true;
 
-        Graph * g1 = readFilePartTwo(file1);
-        g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
-        g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
+        Graph *g1 = readFilePartTwo(file1);
+        // g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
+        // g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
 
-        vector<Node*> _solution = GraphOperations::AlgortimoGuloso(g1);
+        // vector<Node*> _solution = GraphOperations::AlgortimoGuloso(g1);
 
-        int sum = 0;
-        for(auto node : _solution){
-            cout << endl << "ID: " << node->getID() << "\tPeso: " << node->getWeight() << "\tTotal:" << sum ;
-            sum += node->getWeight();
+        // int sum = 0;
+        // for(auto node : _solution){
+        //     cout << endl << "ID: " << node->getID() << "\tPeso: " << node->getWeight() << "\tTotal:" << sum ;
+        //     sum += node->getWeight();
+        // }
+
+        // cout << endl << " = " << sum;
+
+        ofstream out("saida.txt");
+        out << "Arquivo 50_50: " << endl;
+        float time[10];
+        float solucao[10];
+        float alfa = 0.15;
+        float tInicio = 0, tFim = 0;
+        float sum = 0;
+        float mediaSol = 0;
+        float mediaTemp = 0;
+        out << "Para Alfa: " << alfa << endl;
+        for (int i = 0; i < 10; i++)
+        {
+            sum = 0;
+            tInicio = clock();
+            vector<Node *> sol = GraphOperations::AGRA(g1, alfa);
+            tFim = clock();
+            time[i] = (tFim - tInicio) / CLOCKS_PER_SEC;
+            out << "Tempo para iteração " << i + 1 << ": " << time[i] << endl;
+            for (auto node : sol)
+                sum += node->getWeight();
+            out << "Soma: " << sum << endl;
+            solucao[i] = sum;
         }
 
-        cout << endl << " = " << sum;
+        for (auto sol : solucao)
+            mediaSol += sol;
+        out << "Media: " << mediaSol / 10 << endl;
+        for (auto t : time)
+            mediaTemp += t;
+        out << "Media Tempo: " << mediaTemp / 10 << endl;
 
+        out << endl;
+        alfa = 0.30;
+        sum = 0;
+        mediaSol = 0;
+        mediaTemp = 0;
+        out << "Para Alfa: " << alfa << endl;
+        for (int i = 0; i < 10; i++)
+        {
+            sum = 0;
+            tInicio = clock();
+            vector<Node *> sol = GraphOperations::AGRA(g1, alfa);
+            tFim = clock();
+            time[i] = (tFim - tInicio) / CLOCKS_PER_SEC;
+            out << "Tempo para iteração " << i + 1 << ": " << time[i] << endl;
+            for (auto node : sol)
+                sum += node->getWeight();
+            out << "Soma: " << sum << endl;
+            solucao[i] = sum;
+        }
 
+        for (auto sol : solucao)
+            mediaSol += sol;
+        out << "Media: " << mediaSol / 10 << endl;
+        for (auto t : time)
+            mediaTemp += t;
+        out << "Media Tempo: " << mediaTemp / 10 << endl;
+        out << endl;
 
-//        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
+        alfa = 0.50;
+        sum = 0;
+        mediaSol = 0;
+        mediaTemp = 0;
+        out << "Para Alfa: " << alfa << endl;
+        for (int i = 0; i < 10; i++)
+        {
+            sum = 0;
+            tInicio = clock();
+            vector<Node *> sol = GraphOperations::AGRA(g1, alfa);
+            tFim = clock();
+            time[i] = (tFim - tInicio) / CLOCKS_PER_SEC;
+            out << "Tempo para iteração " << i + 1 << ": " << time[i] << endl;
+            for (auto node : sol)
+                sum += node->getWeight();
+            out << "Soma: " << sum << endl;
+            solucao[i] = sum;
+        }
 
-//        g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
-//        g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
-//
-//
-//        Graph * _union = GraphOperations::Union(g1, g2);
-//        _union->generateGraphViz(OUTPUT_PATH + "union.dot");
-//        _union->generateAdjacencyList(OUTPUT_PATH + "union.txt");
-//
-//        Graph * _intersection = GraphOperations::Intersection(g1, g2);
-//        _intersection->generateGraphViz(OUTPUT_PATH + "intersection.dot");
-//        _intersection->generateAdjacencyList(OUTPUT_PATH + "intersection.txt");
-//
-//        Graph * _difference = GraphOperations::Difference(g1, g2);
-//        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
-//        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
-//
-//        vector<Node*> _redePert = GraphOperations::RedePert(g1);
-//          PrintVector(_redePert);
+        for (auto sol : solucao)
+            mediaSol += sol;
+        out << "Media: " << mediaSol / 10 << endl;
+        for (auto t : time)
+            mediaTemp += t;
+        out << "Media Tempo: " << mediaTemp / 10 << endl;
+        out << endl;
+
+        out.close();
+
+        //        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
+
+        //        g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
+        //        g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
+        //
+        //
+        //        Graph * _union = GraphOperations::Union(g1, g2);
+        //        _union->generateGraphViz(OUTPUT_PATH + "union.dot");
+        //        _union->generateAdjacencyList(OUTPUT_PATH + "union.txt");
+        //
+        //        Graph * _intersection = GraphOperations::Intersection(g1, g2);
+        //        _intersection->generateGraphViz(OUTPUT_PATH + "intersection.dot");
+        //        _intersection->generateAdjacencyList(OUTPUT_PATH + "intersection.txt");
+        //
+        //        Graph * _difference = GraphOperations::Difference(g1, g2);
+        //        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
+        //        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
+        //
+        //        vector<Node*> _redePert = GraphOperations::RedePert(g1);
+        //          PrintVector(_redePert);
     }
 
     return 0;

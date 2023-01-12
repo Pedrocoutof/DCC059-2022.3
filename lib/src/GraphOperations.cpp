@@ -457,7 +457,7 @@ vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
 }
 
 //algoritmo guloso randomizado reativo
-vector<Node *> GraphOperations::AGRR(Graph *graph){
+vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa){
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
@@ -477,7 +477,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph){
     sort->SortByWeightAndEdges(candidatos);
     vector<Node*> aux(candidatos);
     defaultStatus(N_SOL_ADJ);
-    float alfa = 0.1;
+    //float alfa = 0.1;
     while(i<=numInter){
         i++;
         while(!candidatos.empty()){
@@ -526,7 +526,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph){
 }
 
 //algoritmo guloso randomizado adaptativo
-vector<Node *> GraphOperations::AGRA(Graph *graph){
+vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa){
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
@@ -539,8 +539,7 @@ vector<Node *> GraphOperations::AGRA(Graph *graph){
     //lista de todas as soluções encontrada
     vector<vector<Node *>> possibleSolutions;
     Sort *sort = new Sort();
-    int numInter = 500;
-    float alfa = 0.1;
+    int numInter = 100;
     int range = candidatos.size() * alfa;
     int randN = rand() % range + 2;
     int randomNode;
