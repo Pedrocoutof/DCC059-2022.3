@@ -19,25 +19,7 @@ void Sort::SortByWeight(vector<Node*> &v){
 };
 
 void Sort::SortByWeightAndEdges(vector<Node*> &v){
-    vector<int> auxWeigth;
-    vector<Node*> aux(v);
-    for(auto node: v){
-        auxWeigth.push_back(node->getWeight());
-        //criterio
-        float newWeight = node->getAllUndirectedEdges().size()/(node->getWeight());
-        node->setWeight(newWeight);
-    }
-    QuickSortNodeWeightAux(v, 0, v.size() - 1);
-    for(auto nodeAux: aux){
-        nodeAux->setWeight(auxWeigth.front());
-        auxWeigth.erase(auxWeigth.begin());
-        for(auto node: v){
-            if(node->getID() == nodeAux->getID()){
-                node->setWeight(nodeAux->getWeight());
-            }
-        }
-    }
-
+    QuickSortNodeWeightDegreeAux(v, 0, v.size() - 1);
 };
 
 // region Ordenacao dos nós pelo id
@@ -125,8 +107,28 @@ int Sort::PartitionNodeWeight(vector<Node*> &v, int start, int end){
     swap(v[j],v[pivot]);
     return j;
 }
+int Sort::PartitionNodeWeightDegree(vector<Node*> &v, int start, int end){
+    int pivot = end;
+    int j = start;
+    for(int i=start;i<end;++i){
+        if((v[i]->getWeight()/v[i]->getAllUndirectedEdges().size()) < (v[pivot]->getWeight())/v[pivot]->getAllUndirectedEdges().size()){
+            swap(v[i],v[j]);
+            ++j;
+        }
+    }
+    swap(v[j],v[pivot]);
+    return j;
+}
 
 void Sort::QuickSortNodeWeightAux(vector<Node*> &v, int start, int end ){
+    if(start<end){
+        int p = PartitionNodeWeight(v,start,end);
+        QuickSortNodeWeightAux(v,start,p-1);
+        QuickSortNodeWeightAux(v,p+1,end);
+    }
+}
+
+void Sort::QuickSortNodeWeightDegreeAux(vector<Node*> &v, int start, int end ){
     if(start<end){
         int p = PartitionNodeWeight(v,start,end);
         QuickSortNodeWeightAux(v,start,p-1);

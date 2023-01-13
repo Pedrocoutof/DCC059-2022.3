@@ -31,6 +31,10 @@ public:
     static void SortByWeight(vector<Edge*> &v);
 
     static void SortByWeightAndEdges(vector<Node *> &v);
+
+    static void QuickSortNodeWeightDegreeAux(vector<Node *> &v, int start, int end);
+
+    int PartitionNodeWeightDegree(vector<Node *> &v, int start, int end);
 };
 
 #endif //TRABALHO_1_REFATORADO_SORT_H

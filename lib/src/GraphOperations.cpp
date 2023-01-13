@@ -508,9 +508,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
-    unsigned seed = time(0);
 
-    srand(seed);
     // nos da solução
     vector<Node *> selectedNodes;
     // lista de candidatos
@@ -538,6 +536,9 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
         alfa = alfa * p;
         while (j < K)
         {
+            unsigned seed = time(0);
+
+            srand(seed);
             while (!candidatos.empty())
             {
                 int range = (candidatos.size() * alfa) + 1;
@@ -623,9 +624,7 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa)
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
-    unsigned seed = time(0);
 
-    srand(seed);
     // nos da solução
     vector<Node *> selectedNodes;
     // lista de candidatos
@@ -648,8 +647,12 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa)
     while (i < numIter)
     {
         i++;
-        for (int j = 0; j > randN; j++)
+        unsigned seed = time(0);
+
+        srand(seed);
+       while(randN>0)
         {
+           randN--;
             randomNode = rand() % range + 0;
             Node *selectedNode = candidatos.at(randomNode);
             selectedNodes.push_back(selectedNode);
