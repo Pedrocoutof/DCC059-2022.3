@@ -4,6 +4,7 @@
 #include "iostream"
 #include "../include/Sort.h"
 #include <ctime>
+#include <thread>
 
 using namespace std;
 
@@ -536,11 +537,12 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
         alfa = alfa * p;
         while (j < K)
         {
-            unsigned seed = time(NULL);
 
-            srand(seed);
             while (!candidatos.empty())
             {
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
+            unsigned seed = time(NULL);
+            srand(seed);    
                 int range = (candidatos.size() * alfa) + 1;
                 int randN = rand() % range + 0;
                 cout << "Aleatorio: " << randN << endl;
