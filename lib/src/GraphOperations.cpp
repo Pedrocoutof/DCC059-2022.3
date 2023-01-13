@@ -518,7 +518,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
     vector<Node *> solution;
     // lista de todas as soluções encontradas
     vector<vector<Node *>> possibleSolutions;
-    int numIter = 10;
+    int numIter = 2500;
     int K = 250;
     int i = 1;
     float q = 0;
@@ -536,7 +536,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
         alfa = alfa * p;
         while (j < K)
         {
-            unsigned seed = time(0);
+            unsigned seed = time(NULL);
 
             srand(seed);
             while (!candidatos.empty())
@@ -634,7 +634,7 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa)
     // lista de todas as soluções encontrada
     vector<vector<Node *>> possibleSolutions;
     Sort *sort = new Sort();
-    int numIter = 100;
+    int numIter = 500;
     int range = candidatos.size() * alfa;
     int randN = rand() % range + 2;
     int randomNode;
@@ -647,7 +647,7 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa)
     while (i < numIter)
     {
         i++;
-        unsigned seed = time(0);
+        unsigned seed = time(NULL);
 
         srand(seed);
        while(randN>0)
