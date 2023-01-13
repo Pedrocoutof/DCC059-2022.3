@@ -519,13 +519,14 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
     vector<Node *> solution;
     // lista de todas as soluções encontradas
     vector<vector<Node *>> possibleSolutions;
-    int numIter = 2500;
+    int numIter = 10;
     int K = 250;
     int i = 1;
     float q = 0;
     float A = 0;
     float p = 1;
     int j = 0;
+    int contIteracoes = 0;
 
     // criterio
     // ordena a lista de candidatos de acordo com o critério
@@ -534,16 +535,16 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
     defaultStatus(N_SOL_ADJ);
     while (i <= numIter)
     {
+        contIteracoes++;
         alfa = alfa * p;
         while (j < K)
         {
-
+            contIteracoes++;
             while (!candidatos.empty())
             {
-            std::this_thread::sleep_for(std::chrono::milliseconds(5));
-            unsigned seed = time(NULL);
-            srand(seed);    
-                int range = (candidatos.size() * alfa) + 1;
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                srand(time(0));
+                int range = (int) (candidatos.size() * alfa) + 1;
                 int randN = rand() % range + 0;
                 cout << "Aleatorio: " << randN << endl;
                 // adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
@@ -594,6 +595,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
             }
             j++;
         }
+        j = 0;
         float bestWeight = 0;
         ;
         for (auto sol : solution)
@@ -617,6 +619,8 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
         q = (bestWeight / A);
         p = q / qAux;
     }
+
+    cout << endl << "N iteracoes: " << contIteracoes;
     return solution;
 }
 
@@ -638,6 +642,8 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa)
     Sort *sort = new Sort();
     int numIter = 500;
     int range = candidatos.size() * alfa;
+    unsigned seed = time(NULL);
+    srand(seed);
     int randN = rand() % range + 2;
     int randomNode;
     int i = 1;
@@ -646,16 +652,20 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa)
     sort->SortByWeightAndEdges(candidatos);
     defaultStatus(N_SOL_ADJ);
     vector<Node *> aux(candidatos);
+
+    cout << endl << "Aleatorio: " << randN;
     while (i < numIter)
     {
         i++;
-        unsigned seed = time(NULL);
 
-        srand(seed);
-       while(randN>0)
+       while(randN > 0)
         {
-           randN--;
+            std::this_thread::sleep_for(std::chrono::milliseconds(250));
+            seed = time(NULL);
+            srand(seed);
+            randN--;
             randomNode = rand() % range + 0;
+            cout << endl << "randNode: " << randomNode;
             Node *selectedNode = candidatos.at(randomNode);
             selectedNodes.push_back(selectedNode);
             setStatus(selectedNode->getID(), SOL);
