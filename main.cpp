@@ -2,6 +2,7 @@
 #include "lib/include/Graph.h"
 #include "lib/include/Sort.h"
 #include "lib/include/GraphOperations.h"
+#include "string"
 
 /*
  * TODO:
@@ -122,9 +123,9 @@ Graph *readFile(ifstream &input_file, bool directed, bool weightedEdge, bool wei
     return graph;
 };
 
-Graph *readFilePartTwo(ifstream &input_file)
+Graph *readFilePartTwo(ifstream &input_file, bool directed, bool weightedEdge, bool weightedNode)
 {
-    bool directed = false, weightedEdge = false, weightedNode = true;
+    // bool directed = false, weightedEdge = false, weightedNode = true;
     int order = 0;
     string line;
     int weightNode = 0;
@@ -177,136 +178,90 @@ int main(int argc, char *argv[])
 
     if (argc != 6)
     {
-        // printError(__LINE__, "main", "Nao foi passado o numero de parametros correto.");
+        printError(__LINE__, "main.cpp", "Numero de paramentros incorreto.");
+    }
+    else
+    {
 
-        ifstream file1, file2, file3;
-        file1 = selectFile();
-        // file2 = selectFile();
+        cout << argv[0] << endl;
+        cout << argv[1] << endl;
+        cout << argv[2] << endl;
+        cout << argv[3] << endl;
+        cout << argv[4] << endl;
+        cout << argv[5] << endl;
 
-        bool directed = false, weightedEdge = false, weightedNode = true;
+        int select = 0;
+        cout << endl
+             << "[1] - Algoritmo Guloso";
+        cout << endl
+             << "[2] - Algoritmo Guloso Randomizado Adaptativo";
+        cout << endl
+             << "[3] - Algoritmo Guloso Randomizado Reativo";
+        cout << endl
+             << "\t>> ";
+        cin >>
+            select;
 
-        Graph *g1 = readFilePartTwo(file1);
-        // g1->generateAdjacencyList(OUTPUT_PATH + "ad.txt");
-        // g1->generateGraphViz(OUTPUT_PATH + "gv.dot");
-
-        // vector<Node*> _solution = GraphOperations::AlgortimoGuloso(g1);
-
-        // int sum = 0;
-        // for(auto node : _solution){
-        //     cout << endl << "ID: " << node->getID() << "\tPeso: " << node->getWeight() << "\tTotal:" << sum ;
-        //     sum += node->getWeight();
-        // }
-
-        // cout << endl << " = " << sum;
-
-        ofstream out("saida.txt");
-        out << "Arquivo 50_50: " << endl;
-        float time[10];
-        float solucao[10];
-        float alfa = 0.15;
-        float tInicio = 0, tFim = 0;
-        float sum = 0;
-        float mediaSol = 0;
-        float mediaTemp = 0;
-        out << "Para Alfa: " << alfa << endl;
-        for (int i = 0; i < 10; i++)
+        ifstream file;
+        int sum = 0;
+        float alpha =0;
+        int literatura = 0;
+        file.open(argv[1]);
+        Graph *g = readFilePartTwo(file, stoi(argv[3]), stoi(argv[4]), stoi(argv[5]));
+        vector<Node *> sol = vector<Node*>();
+        switch (select)
         {
+        case 1:
+            sol = GraphOperations::AlgortimoGuloso(g);
             sum = 0;
-            tInicio = clock();
-            vector<Node *> sol = GraphOperations::AGRA(g1, alfa);
-            tFim = clock();
-            time[i] = (tFim - tInicio) / CLOCKS_PER_SEC;
-            out << "Tempo para iteração " << i + 1 << ": " << time[i] << endl;
             for (auto node : sol)
+            {
+                cout << endl
+                     << "ID: " << node->getID() << "\tPeso: " << node->getWeight() << endl;
                 sum += node->getWeight();
-            out << "Soma: " << sum << endl;
-            solucao[i] = sum;
-        }
+            }
+            cout << endl
+                 << " = " << sum<<endl;
+            break;
 
-        for (auto sol : solucao)
-            mediaSol += sol;
-        out << "Media: " << mediaSol / 10 << endl;
-        for (auto t : time)
-            mediaTemp += t;
-        out << "Media Tempo: " << mediaTemp / 10 << endl;
-
-        out << endl;
-        alfa = 0.30;
-        sum = 0;
-        mediaSol = 0;
-        mediaTemp = 0;
-        out << "Para Alfa: " << alfa << endl;
-        for (int i = 0; i < 10; i++)
-        {
+        case 2:
             sum = 0;
-            tInicio = clock();
-            vector<Node *> sol = GraphOperations::AGRA(g1, alfa);
-            tFim = clock();
-            time[i] = (tFim - tInicio) / CLOCKS_PER_SEC;
-            out << "Tempo para iteração " << i + 1 << ": " << time[i] << endl;
+            cout << "\nSelecione o valor de alpha: \n\t>> ";
+            cin >> alpha;
+            sol = GraphOperations::AGRA(g, alpha);
             for (auto node : sol)
+            {
+                cout << endl
+                     << "ID: " << node->getID() << "\tPeso: " << node->getWeight() << endl;
                 sum += node->getWeight();
-            out << "Soma: " << sum << endl;
-            solucao[i] = sum;
-        }
-
-        for (auto sol : solucao)
-            mediaSol += sol;
-        out << "Media: " << mediaSol / 10 << endl;
-        for (auto t : time)
-            mediaTemp += t;
-        out << "Media Tempo: " << mediaTemp / 10 << endl;
-        out << endl;
-
-        alfa = 0.50;
-        sum = 0;
-        mediaSol = 0;
-        mediaTemp = 0;
-        out << "Para Alfa: " << alfa << endl;
-        for (int i = 0; i < 10; i++)
-        {
+            }
+            cout << endl
+                 << " = " << sum<<endl;
+            break;
+        case 3:
             sum = 0;
-            tInicio = clock();
-            vector<Node *> sol = GraphOperations::AGRA(g1, alfa);
-            tFim = clock();
-            time[i] = (tFim - tInicio) / CLOCKS_PER_SEC;
-            out << "Tempo para iteração " << i + 1 << ": " << time[i] << endl;
+            cout << "Selecione o valor de alpha: \n\t>> ";
+            cin >> alpha;
+            cout << endl;
+
+            cout << "Selecione o valor de literatura: \n\t>> ";
+            cin >> literatura;
+            cout << endl;
+
+            sol = GraphOperations::AGRR(g, alpha, literatura);
             for (auto node : sol)
+            {
+                cout << endl
+                     << "ID: " << node->getID() << "\tPeso: " << node->getWeight() << endl;
                 sum += node->getWeight();
-            out << "Soma: " << sum << endl;
-            solucao[i] = sum;
+            }
+            cout << endl
+                 << " = " << sum<<endl;
+            break;
+
+        default:
+            break;
         }
-
-        for (auto sol : solucao)
-            mediaSol += sol;
-        out << "Media: " << mediaSol / 10 << endl;
-        for (auto t : time)
-            mediaTemp += t;
-        out << "Media Tempo: " << mediaTemp / 10 << endl;
-        out << endl;
-
-        out.close();
-
-        //        Graph * g2 = readFile(file2, directed, weightedEdge, weightedNode);
-
-        //        g1->generateGraphViz(OUTPUT_PATH + "g1.dot");
-        //        g2->generateGraphViz(OUTPUT_PATH + "g2.dot");
-        //
-        //
-        //        Graph * _union = GraphOperations::Union(g1, g2);
-        //        _union->generateGraphViz(OUTPUT_PATH + "union.dot");
-        //        _union->generateAdjacencyList(OUTPUT_PATH + "union.txt");
-        //
-        //        Graph * _intersection = GraphOperations::Intersection(g1, g2);
-        //        _intersection->generateGraphViz(OUTPUT_PATH + "intersection.dot");
-        //        _intersection->generateAdjacencyList(OUTPUT_PATH + "intersection.txt");
-        //
-        //        Graph * _difference = GraphOperations::Difference(g1, g2);
-        //        _difference->generateGraphViz(OUTPUT_PATH + "difference.dot");
-        //        _difference->generateAdjacencyList(OUTPUT_PATH + "difference.txt");
-        //
-        //        vector<Node*> _redePert = GraphOperations::RedePert(g1);
-        //          PrintVector(_redePert);
     }
 
     return 0;

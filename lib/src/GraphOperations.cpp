@@ -298,7 +298,7 @@ bool verifyPred(Node *node, vector<Node *> solution)
     return true;
 }
 
-bool isInSol(Node *x, vector<Node*> S)
+bool isInSol(Node *x, vector<Node *> S)
 {
     for (auto predX : x->getAllInputEdges())
         for (auto sol : S)
@@ -306,7 +306,6 @@ bool isInSol(Node *x, vector<Node*> S)
                 return false;
     return true;
 }
-
 vector<Node *> GraphOperations::RedePert(Graph *graph)
 {
     graph->generateGraphViz("./testegrafo.dot");
@@ -324,75 +323,116 @@ vector<Node *> GraphOperations::RedePert(Graph *graph)
     {
         beta[i] = 0;
         alpha[i] = 0;
-        visited[i] = false;
     }
 
     int oldAlpha = 0;
     int newAlpha = 0;
-
+    int edgeWeight = 0;
+    int contagem = 0;
     // Insere na solução todos os nós que nao possuem dependência
     for (auto node : graph->getAllNodes())
         if (node->getAllInputEdges().empty())
         {
             S.push_back(node);
-            visited[node->getID() - 1] = true;
         }
-    vector<Node *> NoList = graph->getAllNodes(); 
-    for (auto x : NoList)
+    vector<Node *> NoList;
+    NoList.clear();
+    for (auto x : graph->getAllNodes()) // CALCULA ALPHA
     {
-        for (auto nodeS : S)
-            if (x->getID() != nodeS->getID() && isInSol(x, S)){ //verifica a condiçao do enquanto
-                
-                
-                S.push_back(x);
-                 
+        oldAlpha = 0;
+        contagem = x->getInDegree();
+        for (auto sol : S)
+        {
+            if (x->searchInputEdge(sol->getID()))
+            {
+                // cout << "Dentro do 1 for: ID: " << x->getID() << " Alpha: " << alpha[x->getID() - 1] << "\n";
+                newAlpha = sol->getEdge(x->getID())->getWeight() + alpha[sol->getID() - 1];
+                // cout << "Peso aresta: " << sol->getEdge(x->getID())->getWeight() << endl;
+                // cout << "New alpha: " << newAlpha << " Old alpha: " << oldAlpha << endl;
+                if (newAlpha > oldAlpha)
+                    oldAlpha = newAlpha;
+                // cout << "Old alpha: " << oldAlpha << endl
+                //  << "==========" << endl;
             }
-        // Se nao cair na condição add dnv o vertice no e vai para o proximo
-        NoList.push_back(x);
-                
+        }
+        if (isInSol(x, S))
+        {
+            // cout << "No: " << x->getID() << " entrou, Peso oldAlpha: " << oldAlpha << endl;
+            alpha[x->getID() - 1] = oldAlpha;
+            // S.push_back(x);
+
+            for (auto y : graph->getAllNodes())
+            {
+                oldAlpha = 0;
+                for (auto sol : S)
+                {
+                    if (y->searchInputEdge(sol->getID()))
+                    {
+                        // cout << "Dentro do 2 for: ID: " << y->getID() << " Alpha: " << alpha[y->getID() - 1] << endl;
+                        newAlpha = sol->getEdge(y->getID())->getWeight() + alpha[sol->getID() - 1];
+                        // cout << "Peso aresta: " << sol->getEdge(y->getID())->getWeight() << endl;
+                        // cout << "New alpha: " << newAlpha << " Old alpha: " << oldAlpha << endl
+                        //  << endl;
+                        if (newAlpha > oldAlpha)
+                            oldAlpha = newAlpha;
+                    }
+                }
+                if (isInSol(y, S))
+                {
+                    alpha[y->getID() - 1] = oldAlpha;
+                    S.push_back(y);
+                }
+            }
+        }
     }
 
     for (int i = 0; i < graph->getOrder(); i++)
     {
-        cout << "\n\nNo: " << graph->getNode(i + 1)->getID() << "  Alpha: " << alpha[i] << "\n";
+        cout << "\nNo: " << graph->getNode(i + 1)->getID() << "  Alpha: " << alpha[i] << "\n";
     }
 
     return S;
 }
 
-
 int statusNode[999];
 
-void defaultStatus(int status){
-    for(int i = 0; i < 999; i++){
+void defaultStatus(int status)
+{
+    for (int i = 0; i < 999; i++)
+    {
         statusNode[i] = status;
     }
 }
 
-void setStatus(int idNode, int status){
+void setStatus(int idNode, int status)
+{
     statusNode[idNode - 1] = status;
 }
 
-int getStatus(int idNode){
+int getStatus(int idNode)
+{
     return statusNode[idNode - 1];
 }
 
 // region Algoritmo Guloso
-double funcaoCriterio(Node * node){
+double funcaoCriterio(Node *node)
+{
 
     int n_nodesNotAdj = 0;
 
-    for(auto edge : node->getAllUndirectedEdges())
-        if(getStatus(edge->getTargetId()) == 0)
+    for (auto edge : node->getAllUndirectedEdges())
+        if (getStatus(edge->getTargetId()) == 0)
             n_nodesNotAdj++;
 
-    return  (n_nodesNotAdj + 1.0) / node->getWeight();
+    return (n_nodesNotAdj + 1.0) / node->getWeight();
 }
 
 // Estrutura auxiliar para inserir de forma ordenada os nós na pq
-struct compBestNode{
-    bool operator() (Node* const n1, Node* const n2){
-            return funcaoCriterio(n1) < funcaoCriterio(n2);
+struct compBestNode
+{
+    bool operator()(Node *const n1, Node *const n2)
+    {
+        return funcaoCriterio(n1) < funcaoCriterio(n2);
     }
 };
 
@@ -400,79 +440,85 @@ struct compBestNode{
  * Caso o status = 0 -> Não visitado
  *               = 1 -> Adjacente a Solução
  */
-vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
+vector<Node *> GraphOperations::AlgortimoGuloso(Graph *graph)
+{
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
-    priority_queue<Node*, vector<Node*>, compBestNode> candidatos = priority_queue<Node*, vector<Node*>, compBestNode> ();
-    vector<Node*> _solution = vector<Node*>();
+    priority_queue<Node *, vector<Node *>, compBestNode> candidatos = priority_queue<Node *, vector<Node *>, compBestNode>();
+    vector<Node *> _solution = vector<Node *>();
     defaultStatus(N_SOL_ADJ);
 
-    for(auto node : graph->getAllNodes()){
+    for (auto node : graph->getAllNodes())
+    {
         candidatos.push(node);
     }
 
-    while(!candidatos.empty()) {
+    while (!candidatos.empty())
+    {
         priority_queue<Node *, vector<Node *>, compBestNode> aux = candidatos;
 
-//        IMPRESSÃO TESTE
-//        cout << endl << " === Melhores nos === ";
-//        while(!aux.empty()){
-//            cout << endl << "ID: " << aux.top()->getID() << " : " << funcaoCriterio(aux.top());
-//            aux.pop();
-//        }
-//        cout << endl <<"================== " << endl;
-//        FIM IMPRESSÃO TESTE
+        //        IMPRESSÃO TESTE
+        //        cout << endl << " === Melhores nos === ";
+        //        while(!aux.empty()){
+        //            cout << endl << "ID: " << aux.top()->getID() << " : " << funcaoCriterio(aux.top());
+        //            aux.pop();
+        //        }
+        //        cout << endl <<"================== " << endl;
+        //        FIM IMPRESSÃO TESTE
 
-//        Pegamos o melhor nó
-        Node * _bestNode = candidatos.top();
+        //        Pegamos o melhor nó
+        Node *_bestNode = candidatos.top();
 
-//      Insere ele na solução
+        //      Insere ele na solução
         _solution.push_back(_bestNode);
         setStatus(_bestNode->getID(), SOL);
 
-//      Remove ele da fila de candidatos
+        //      Remove ele da fila de candidatos
         candidatos.pop();
 
-//      Agora, deve 'setar' todos seus adj como 'ADJ_SOL'
-        for(auto edge : _bestNode->getAllUndirectedEdges()){
+        //      Agora, deve 'setar' todos seus adj como 'ADJ_SOL'
+        for (auto edge : _bestNode->getAllUndirectedEdges())
+        {
             setStatus(edge->getTargetId(), ADJ_SOL);
         }
 
-//      Remove os que são adj a solução da lista de candidatos
+        //      Remove os que são adj a solução da lista de candidatos
         aux = candidatos;
         candidatos = priority_queue<Node *, vector<Node *>, compBestNode>();
-        while(!aux.empty()){
+        while (!aux.empty())
+        {
 
-//            Caso o nó não estiver contemplado
-            if(getStatus(aux.top()->getID()) == N_SOL_ADJ){
+            //            Caso o nó não estiver contemplado
+            if (getStatus(aux.top()->getID()) == N_SOL_ADJ)
+            {
                 candidatos.push(aux.top());
             }
 
             aux.pop();
         }
-
     }
 
     return _solution;
 }
 
-//algoritmo guloso randomizado reativo
-vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiteratura){
+// algoritmo guloso randomizado reativo
+vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiteratura)
+{
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
     unsigned seed = time(0);
 
     srand(seed);
-    //nos da solução
+    // nos da solução
     vector<Node *> selectedNodes;
-    //lista de candidatos
+    // lista de candidatos
     vector<Node *> candidatos = graph->getAllNodes();
     Sort *sort = new Sort();
-    //solução final
+    // solução final
     vector<Node *> solution;
-    //lista de todas as soluções encontradas
+    // lista de todas as soluções encontradas
     vector<vector<Node *>> possibleSolutions;
     int numIter = 10;
     int K = 250;
@@ -482,40 +528,48 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
     float p = 1;
     int j = 0;
 
-    //criterio
-    //ordena a lista de candidatos de acordo com o critério
+    // criterio
+    // ordena a lista de candidatos de acordo com o critério
     sort->SortByWeightAndEdges(candidatos);
-    vector<Node*> aux(candidatos);
+    vector<Node *> aux(candidatos);
     defaultStatus(N_SOL_ADJ);
-    while(i <= numIter){
+    while (i <= numIter)
+    {
         alfa = alfa * p;
-        while(j<K){
-            while(!candidatos.empty()){
-                int range = (candidatos.size()*alfa)+1;
+        while (j < K)
+        {
+            while (!candidatos.empty())
+            {
+                int range = (candidatos.size() * alfa) + 1;
                 int randN = rand() % range + 0;
-                cout << "Aleatorio: "<<randN<<endl;
-                //adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
-                Node* selectedNode = candidatos.at(randN);
+                cout << "Aleatorio: " << randN << endl;
+                // adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
+                Node *selectedNode = candidatos.at(randN);
                 selectedNodes.push_back(selectedNode);
                 setStatus(selectedNode->getID(), SOL);
-                //removendo os adjacentes do selecionado dos não selecionados
-                for(auto edge: selectedNode->getAllUndirectedEdges()){
+                // removendo os adjacentes do selecionado dos não selecionados
+                for (auto edge : selectedNode->getAllUndirectedEdges())
+                {
                     setStatus(edge->getTargetId(), ADJ_SOL);
                 }
                 auto it = candidatos.begin();
-                //removendo o nó
-                for( ; it != candidatos.end() ;it++){
-                    if( (*it)->getID() == selectedNode->getID()){
+                // removendo o nó
+                for (; it != candidatos.end(); it++)
+                {
+                    if ((*it)->getID() == selectedNode->getID())
+                    {
                         candidatos.erase(it);
                         break;
                     }
                 }
-                aux=candidatos;
+                aux = candidatos;
                 candidatos.clear();
-                while(!aux.empty()){
+                while (!aux.empty())
+                {
 
-//            Caso o nó não estiver contemplado
-                    if(getStatus(aux.front()->getID()) == N_SOL_ADJ){
+                    //            Caso o nó não estiver contemplado
+                    if (getStatus(aux.front()->getID()) == N_SOL_ADJ)
+                    {
                         candidatos.push_back(aux.front());
                     }
 
@@ -524,54 +578,61 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
             }
 
             possibleSolutions.push_back(selectedNodes);
-            if(!solution.empty()){
-                if(compareSolutions(selectedNodes, solution)){
+            if (!solution.empty())
+            {
+                if (compareSolutions(selectedNodes, solution))
+                {
                     solution = selectedNodes;
                 }
             }
-            if(solution.empty()){
+            if (solution.empty())
+            {
                 solution = selectedNodes;
             }
             j++;
         }
-        float bestWeight = 0;;
-        for(auto sol: solution){
+        float bestWeight = 0;
+        ;
+        for (auto sol : solution)
+        {
             bestWeight += sol->getWeight();
         }
         float aux = 0;
         float qAux = 0;
-        for (auto sols: possibleSolutions){
+        for (auto sols : possibleSolutions)
+        {
             aux = 0;
-            for(auto sol: sols){
+            for (auto sol : sols)
+            {
                 aux += sol->getWeight();
-                A+= aux/bestLiteratura;
-                qAux+=A;
+                A += aux / bestLiteratura;
+                qAux += A;
             }
         }
-        A = A/possibleSolutions.size();
+        A = A / possibleSolutions.size();
         i++;
-        q = (bestWeight/A);
-        p = q/qAux;
-
+        q = (bestWeight / A);
+        p = q / qAux;
     }
     return solution;
 }
 
-//algoritmo guloso randomizado adaptativo
-vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa){
+// algoritmo guloso randomizado adaptativo
+vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa)
+{
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
     unsigned seed = time(0);
 
     srand(seed);
-    //nos da solução
+    // nos da solução
     vector<Node *> selectedNodes;
-    //lista de candidatos
+    // lista de candidatos
     vector<Node *> candidatos = graph->getAllNodes();
-    //solução final
+    // solução final
     vector<Node *> solution;
-    //lista de todas as soluções encontrada
+    // lista de todas as soluções encontrada
     vector<vector<Node *>> possibleSolutions;
     Sort *sort = new Sort();
     int numIter = 100;
@@ -579,64 +640,77 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa){
     int randN = rand() % range + 2;
     int randomNode;
     int i = 1;
-    //criterio
-    //ordenando a lista de nós de acordo com o critério
+    // criterio
+    // ordenando a lista de nós de acordo com o critério
     sort->SortByWeightAndEdges(candidatos);
     defaultStatus(N_SOL_ADJ);
-    vector<Node*> aux(candidatos);
-    while(i < numIter){
+    vector<Node *> aux(candidatos);
+    while (i < numIter)
+    {
         i++;
-        for(int j =0; j>randN;j++){
+        for (int j = 0; j > randN; j++)
+        {
             randomNode = rand() % range + 0;
-            Node* selectedNode = candidatos.at(randomNode);
+            Node *selectedNode = candidatos.at(randomNode);
             selectedNodes.push_back(selectedNode);
             setStatus(selectedNode->getID(), SOL);
-            //removendo os adjacentes do selecionado dos não selecionados
-            for(auto edge: selectedNode->getAllUndirectedEdges()){
+            // removendo os adjacentes do selecionado dos não selecionados
+            for (auto edge : selectedNode->getAllUndirectedEdges())
+            {
                 setStatus(edge->getTargetId(), ADJ_SOL);
             }
             auto it = candidatos.begin();
-            //removendo o nó
-            for( ; it != candidatos.end() ;it++){
-                if( (*it)->getID() == selectedNode->getID()){
+            // removendo o nó
+            for (; it != candidatos.end(); it++)
+            {
+                if ((*it)->getID() == selectedNode->getID())
+                {
                     candidatos.erase(it);
                     break;
                 }
             }
         }
-        aux=candidatos;
+        aux = candidatos;
         candidatos.clear();
-        while(!aux.empty()){
+        while (!aux.empty())
+        {
 
-//            Caso o nó não estiver contemplado
-            if(getStatus(aux.front()->getID()) == N_SOL_ADJ){
+            //            Caso o nó não estiver contemplado
+            if (getStatus(aux.front()->getID()) == N_SOL_ADJ)
+            {
                 candidatos.push_back(aux.front());
             }
 
             aux.erase(aux.begin());
         }
 
-        while (!candidatos.empty()){
-            Node* selectedNode = candidatos.front();
+        while (!candidatos.empty())
+        {
+            Node *selectedNode = candidatos.front();
             selectedNodes.push_back(selectedNode);
             setStatus(selectedNode->getID(), SOL);
-            for(auto edge: selectedNode->getAllUndirectedEdges()){
+            for (auto edge : selectedNode->getAllUndirectedEdges())
+            {
                 setStatus(edge->getTargetId(), ADJ_SOL);
             }
             auto it = candidatos.begin();
-            //removendo o nó
-            for( ; it != candidatos.end() ;it++){
-                if( (*it)->getID() == selectedNode->getID()){
+            // removendo o nó
+            for (; it != candidatos.end(); it++)
+            {
+                if ((*it)->getID() == selectedNode->getID())
+                {
                     candidatos.erase(it);
                     break;
                 }
             }
-            aux=candidatos;
+            aux = candidatos;
             candidatos.clear();
-            while(!aux.empty()){
+            while (!aux.empty())
+            {
 
-//            Caso o nó não estiver contemplado
-                if(getStatus(aux.front()->getID()) == N_SOL_ADJ){
+                //            Caso o nó não estiver contemplado
+                if (getStatus(aux.front()->getID()) == N_SOL_ADJ)
+                {
                     candidatos.push_back(aux.front());
                 }
 
@@ -644,40 +718,39 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa){
             }
         }
 
-
         possibleSolutions.push_back(selectedNodes);
-        if(!solution.empty()){
-            if(compareSolutions(selectedNodes, solution)){
+        if (!solution.empty())
+        {
+            if (compareSolutions(selectedNodes, solution))
+            {
                 solution = selectedNodes;
             }
         }
-        if(solution.empty()){
+        if (solution.empty())
+        {
             solution = selectedNodes;
         }
-
-
-
-
     }
     return solution;
 }
 
-bool GraphOperations::compareSolutions(vector<Node *> &selectedNodes, vector<Node *> &solution){
+bool GraphOperations::compareSolutions(vector<Node *> &selectedNodes, vector<Node *> &solution)
+{
 
-    float solutionWeight= 0;
-    float selectedNodesWeight= 0;
-    for(auto node: solution){
+    float solutionWeight = 0;
+    float selectedNodesWeight = 0;
+    for (auto node : solution)
+    {
         solutionWeight += node->getWeight();
     }
-    for(auto node: selectedNodes){
+    for (auto node : selectedNodes)
+    {
         selectedNodesWeight += node->getWeight();
     }
     return solutionWeight < selectedNodesWeight;
 }
 
 // enregion
-
-
 
 /* Solução antiga
 vector<Node*> GraphOperations::AlgortimoGuloso(Graph * graph){
