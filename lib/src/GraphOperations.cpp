@@ -3,6 +3,7 @@
 #include "../include/GraphOperations.h"
 #include "iostream"
 #include "../include/Sort.h"
+#include <ctime>
 
 using namespace std;
 
@@ -461,6 +462,9 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
+    unsigned seed = time(0);
+
+    srand(seed);
     //nos da solução
     vector<Node *> selectedNodes;
     //lista de candidatos
@@ -489,6 +493,7 @@ vector<Node *> GraphOperations::AGRR(Graph *graph, float alfa, float bestLiterat
             while(!candidatos.empty()){
                 int range = (candidatos.size()*alfa)+1;
                 int randN = rand() % range + 0;
+                cout << "Aleatorio: "<<randN<<endl;
                 //adicionando um vértice aleatório dos não selecionados entre os vértices selecionados
                 Node* selectedNode = candidatos.at(randN);
                 selectedNodes.push_back(selectedNode);
@@ -557,6 +562,9 @@ vector<Node *> GraphOperations::AGRA(Graph *graph, float alfa){
     const int N_SOL_ADJ = 0;
     const int ADJ_SOL = 1;
     const int SOL = 2;
+    unsigned seed = time(0);
+
+    srand(seed);
     //nos da solução
     vector<Node *> selectedNodes;
     //lista de candidatos
